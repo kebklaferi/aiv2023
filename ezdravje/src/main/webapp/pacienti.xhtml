@@ -13,20 +13,13 @@
     <a href="ezdravje/dodajPacienta.xhtml">[dodaj pacienta]</a>
     <h3>Vsi pacienti:</h3>
     <f:view>
-        <h:dataTable value="#{pacienti.pridobiVsePaciente}" var="pacient">
-            <h:column>
-                <f:facet name="Ime">
-                    <h:outputText value="Ime" />
-                </f:facet>
-                <h:outputText value="#{pacient.ime}" />
-            </h:column>
-            <h:column>
-                <f:facet name="Priimek">
-                    <h:outputText value="Priimek" />
-                </f:facet>
-                <h:outputText value="#{pacient.priimek}" />
-            </h:column>
-        </h:dataTable>
+        <h:form>
+            <h:dataTable value="#{pacienti.vsePaciente}" var="item">
+                <h:column>
+                    #{item.ime}
+                </h:column>
+            </h:dataTable>
+        </h:form>
     </f:view>
 
 </h:body>

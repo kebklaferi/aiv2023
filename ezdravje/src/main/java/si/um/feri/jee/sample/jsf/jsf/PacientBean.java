@@ -8,6 +8,7 @@ import si.um.feri.jee.sample.jsf.vao.Pacient;
 
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 @Named("pacienti")
@@ -17,7 +18,7 @@ public class PacientBean implements Serializable {
     private Pacient pac = new Pacient();
     private String email;
 
-    public List<Pacient> pridobiVsePaciente(){
+    public List<Pacient> getVsePaciente(){
         return pacDao.pridobiVsePaciente();
     }
 
@@ -26,6 +27,13 @@ public class PacientBean implements Serializable {
         pacDao.dodajPacienta(pac);
     }
 
+    /*
+    public String dodajPacienta(){
+        pacDao.dodajPacienta(pac);
+        return "pacienti.xhtml";
+    }
+
+     */
     public Pacient getPac() {
         return pac;
     }
