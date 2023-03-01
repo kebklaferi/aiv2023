@@ -22,10 +22,12 @@ public class PacientBean implements Serializable {
         return pacDao.pridobiVsePaciente();
     }
 
-    public void ustvariPacienta(){
-        System.out.println("TUKAJ");
+    public String ustvariPacienta(){
+        if (preveriEmail(izbranPacient.getEmail()))
+            return "";
         pacDao.dodajPacienta(izbranPacient);
         izbranPacient = new Pacient();
+        return "pacienti.xhtml";
     }
 
     public Pacient getIzbranPacient() {
@@ -35,11 +37,15 @@ public class PacientBean implements Serializable {
     public void setIzbranPacient(Pacient izbranPacient) {
         this.izbranPacient = izbranPacient;
     }
+    public boolean preveriEmail(String email){
+        return pacDao.preveriEmail(email);
+    }
 
     public String getPacEmail() {
         return pacEmail;
     }
 
+    /*
     public void setPacEmail(String email) {
         pacEmail = email;
         izbranPacient = pacDao.pridobiPacienta(email);
@@ -49,4 +55,6 @@ public class PacientBean implements Serializable {
         }
 
     }
+
+     */
 }

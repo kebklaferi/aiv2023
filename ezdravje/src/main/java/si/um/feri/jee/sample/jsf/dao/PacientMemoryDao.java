@@ -48,4 +48,13 @@ public class PacientMemoryDao implements PacientDAO{
                 return;
         }
     }
+
+    @Override
+    public boolean preveriEmail(String email) {
+        for(Pacient p: pacienti){
+            if(p.getEmail().equals(email))
+                return true;
+        }
+        return false;
+    }
 }

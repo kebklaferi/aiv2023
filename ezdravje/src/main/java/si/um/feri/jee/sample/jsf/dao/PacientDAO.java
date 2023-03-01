@@ -8,4 +8,6 @@ public interface PacientDAO {
     Pacient pridobiPacienta(String email);
     List<Pacient> pridobiVsePaciente();
     void izbrisiPacienta(Pacient pacient);
+
+    boolean preveriEmail(String email);
 }

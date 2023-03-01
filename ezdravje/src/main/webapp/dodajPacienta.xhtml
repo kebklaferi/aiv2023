@@ -10,14 +10,9 @@
 
 <h:body>
     <h1>Pacienti</h1>
-
+    <a href="index.html">Page</a>
     <f:view>
         <h:form>
-
-            <f:metadata>
-                <f:viewParam name="email" value="#{pacienti.pacEmail}"/>
-            </f:metadata>
-
             Ime: <h:inputText id="p_ime" value="#{pacienti.izbranPacient.ime}"/> <br />
             Priimek: <h:inputText id="p_priimek" value="#{pacienti.izbranPacient.priimek}"/> <br />
             E-mail: <h:inputText id="p_email" value="#{pacienti.izbranPacient.email}" validatorMessage="Napaka">
