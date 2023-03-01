@@ -15,8 +15,8 @@ import java.util.List;
 @SessionScoped
 public class PacientBean implements Serializable {
     private PacientDAO pacDao = PacientMemoryDao.getInstance();
-    private Pacient pac = new Pacient();
-    private String email;
+    private Pacient izbranPacient = new Pacient();
+    private String pacEmail;
 
     public List<Pacient> getVsePaciente(){
         return pacDao.pridobiVsePaciente();
@@ -24,33 +24,29 @@ public class PacientBean implements Serializable {
 
     public void ustvariPacienta(){
         System.out.println("TUKAJ");
-        pacDao.dodajPacienta(pac);
+        pacDao.dodajPacienta(izbranPacient);
+        izbranPacient = new Pacient();
     }
 
-    /*
-    public String dodajPacienta(){
-        pacDao.dodajPacienta(pac);
-        return "pacienti.xhtml";
+    public Pacient getIzbranPacient() {
+        return izbranPacient;
     }
 
-     */
-    public Pacient getPac() {
-        return pac;
+    public void setIzbranPacient(Pacient izbranPacient) {
+        this.izbranPacient = izbranPacient;
     }
 
-    public void setPac(Pacient pac) {
-        this.pac = pac;
+    public String getPacEmail() {
+        return pacEmail;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public void setPacEmail(String email) {
+        pacEmail = email;
+        izbranPacient = pacDao.pridobiPacienta(email);
+        if(izbranPacient == null){
+            System.out.println("NULL JE");
+            izbranPacient = new Pacient();
+        }
 
-    public void setEmail(String email) {
-        pac = pacDao.pridobiPacienta(email);
-        if(pac != null)
-            this.email = email;
-        else
-            pac = new Pacient();
     }
 }

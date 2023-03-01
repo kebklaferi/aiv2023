@@ -13,10 +13,18 @@
 
     <f:view>
         <h:form>
-            Ime: <h:inputText value="#{pacienti.pac.ime}"/> <br />
-            Priimek: <h:inputText value="#{pacienti.pac.priimek}"/> <br />
-            E-mail: <h:inputText value="#{pacienti.pac.email}"/> <br />
-            <h:commandButton value="Ustvari" action="#{pacienti.ustvariPacienta()}"/>
+
+            <f:metadata>
+                <f:viewParam name="email" value="#{pacienti.pacEmail}"/>
+            </f:metadata>
+
+            Ime: <h:inputText id="p_ime" value="#{pacienti.izbranPacient.ime}"/> <br />
+            Priimek: <h:inputText id="p_priimek" value="#{pacienti.izbranPacient.priimek}"/> <br />
+            E-mail: <h:inputText id="p_email" value="#{pacienti.izbranPacient.email}" validatorMessage="Napaka">
+                    <f:validateRequired />
+                </h:inputText > * <h:message for="p_email" style="color:red" />
+
+            <h:commandButton value="Ustvari" action="#{pacienti.ustvariPacienta}"/>
         </h:form>
 
     </f:view>

@@ -3,12 +3,15 @@ package si.um.feri.jee.sample.jsf.dao;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PacientMemoryDao implements PacientDAO{
 
-    private List<Pacient> pacienti = new ArrayList<>();
-    private PacientMemoryDao(){}
+    private List<Pacient> pacienti;
+    private PacientMemoryDao(){
+        pacienti = Collections.synchronizedList(new ArrayList<Pacient>());
+    }
     private static PacientMemoryDao instance = new PacientMemoryDao();
 
     public static PacientMemoryDao getInstance(){
@@ -24,8 +27,10 @@ public class PacientMemoryDao implements PacientDAO{
     public Pacient pridobiPacienta(String email) {
         for(Pacient p: pacienti){
             if(p.getEmail().equals(email))
+                System.out.println("ISTI");
                 return p;
         }
+        System.out.println("NOV");
         return null;
     }
 

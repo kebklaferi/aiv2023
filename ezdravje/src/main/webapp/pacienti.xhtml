@@ -10,13 +10,17 @@
 
 <h:body>
     <h1>Pacienti</h1>
-    <a href="ezdravje/dodajPacienta.xhtml">[dodaj pacienta]</a>
+    <a href="#{facesContext.externalContext.applicationContextPath}/ezdravje/dodajPacienta.xhtml?email=NULL">[dodaj pacienta]</a>
     <h3>Vsi pacienti:</h3>
     <f:view>
         <h:form>
             <h:dataTable value="#{pacienti.vsePaciente}" var="item">
                 <h:column>
+                    <f:param name="email" value="#{item.email}"/>
                     #{item.ime}
+                </h:column>
+                <h:column>
+                    #{item.priimek}
                 </h:column>
             </h:dataTable>
         </h:form>
