@@ -7,7 +7,13 @@ import java.util.List;
 
 public class PacientMemoryDao implements PacientDAO{
 
-    private ArrayList<Pacient> pacienti = new ArrayList<>();
+    private List<Pacient> pacienti = new ArrayList<>();
+    private PacientMemoryDao(){}
+    private static PacientMemoryDao instance = new PacientMemoryDao();
+
+    public static PacientMemoryDao getInstance(){
+        return instance;
+    }
 
     @Override
     public void dodajPacienta(Pacient pacient) {
@@ -15,8 +21,12 @@ public class PacientMemoryDao implements PacientDAO{
     }
 
     @Override
-    public void izpisiPacienta() {
-
+    public Pacient pridobiPacienta(String email) {
+        for(Pacient p: pacienti){
+            if(p.getEmail().equals(email))
+                return p;
+        }
+        return null;
     }
 
     @Override
@@ -27,12 +37,10 @@ public class PacientMemoryDao implements PacientDAO{
     @Override
     public void izbrisiPacienta(Pacient pacient) {
         for(Pacient p: pacienti){
-            if(p.getEmail().equals(pacient.getEmail())){
+            if(p.getEmail().equals(pacient.getEmail()))
                 pacienti.remove(p);
-            }
-            else if(p.getEmail() == null || pacient.getEmail() == null){
+            else if(p.getEmail() == null || pacient.getEmail() == null)
                 return;
-            }
         }
     }
 }

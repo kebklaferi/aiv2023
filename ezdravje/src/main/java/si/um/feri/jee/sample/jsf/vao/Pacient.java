@@ -1,15 +1,21 @@
 package si.um.feri.jee.sample.jsf.vao;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Pacient {
     private String ime;
     private String priimek;
     private String email;
-    private LocalDate rojstniDatum;
+    private Date rojstniDatum;
     private String posebnosti;
-
-    public Pacient(String ime, String priimek, String email, LocalDate rojstniDatum, String posebnosti){
+    public Pacient(){
+        this.ime = "";
+        this.priimek = "";
+        this.email = "";
+        this.rojstniDatum = null;
+        this.posebnosti = "";
+    }
+    public Pacient(String ime, String priimek, String email, Date rojstniDatum, String posebnosti){
         this.ime = ime;
         this.priimek = priimek;
         this.email = email;
@@ -41,11 +47,11 @@ public class Pacient {
         this.email = email;
     }
 
-    public LocalDate getRojstniDatum() {
+    public Date getRojstniDatum() {
         return rojstniDatum;
     }
 
-    public void setRojstniDatum(LocalDate rojstniDatum) {
+    public void setRojstniDatum(Date rojstniDatum) {
         this.rojstniDatum = rojstniDatum;
     }
 

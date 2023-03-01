@@ -22,18 +22,20 @@ public class ZdravnikMemoryDao implements ZdravnikDAO{
     @Override
     public void izbrisiZdravnika(Zdravnik zdravnik) {
         for(Zdravnik z: zdravniki){
-            if(z.getEmail().equals(zdravnik.getEmail())){
+            if(z.getEmail().equals(zdravnik.getEmail()))
                 zdravniki.remove(z);
-            }
-            else if(z.getEmail() == null || zdravnik.getEmail() == null){
+            else if(z.getEmail() == null || zdravnik.getEmail() == null)
                 return;
-            }
         }
     }
 
     @Override
-    public void pridobiZdravnika() {
-
+    public Zdravnik pridobiZdravnika(String email) {
+        for(Zdravnik z: zdravniki){
+            if(z.getEmail().equals(email))
+                return z;
+        }
+        return null;
     }
 
     @Override

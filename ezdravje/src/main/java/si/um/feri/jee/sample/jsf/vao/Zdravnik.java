@@ -10,6 +10,10 @@ public class Zdravnik {
     private ArrayList <Pacient> izbraniPacienti;
     public Zdravnik(){
         izbraniPacienti = new ArrayList<>();
+        this.ime = "";
+        this.priimek = "";
+        this.email = "";
+        this.kvotaPacientov = 0;
     }
 
     public Zdravnik(String ime, String priimek, String email, int kvotaPacientov) {

@@ -8,7 +8,7 @@ import java.util.List;
 public interface ZdravnikDAO {
     List<Zdravnik> pridobiVseZdravnike();
     void izbrisiZdravnika(Zdravnik zdravnik);
-    void pridobiZdravnika();
+    Zdravnik pridobiZdravnika(String email);
     void posodobiZdravnika();
     void dodajZdravnika(Zdravnik zdravnik);
     void dodajPacienta(Pacient pacient, Zdravnik zdravnik);
