@@ -31,7 +31,11 @@
                     #{item.kvotaPacientov}
                 </h:column>
                 <h:column>
-                    #{item.izbraniPacienti}
+                    <h:dataTable value="#{item.izbraniPacienti}" var="data">
+                        <h:column>
+                            [#{data.email}, #{data.ime} #{data.priimek}]
+                        </h:column>
+                    </h:dataTable>
                 </h:column>
                 <h:column>
                     [uredi]
