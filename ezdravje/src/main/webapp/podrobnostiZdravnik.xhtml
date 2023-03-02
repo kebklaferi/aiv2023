@@ -19,21 +19,26 @@
         <h:form>
             <h:dataTable value="#{zdravniki.podrobnostiZdravnika}" var="item">
                 <h:column>
+                    <f:facet name="header">Ime</f:facet>
                     #{item.ime}
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Priimek</f:facet>
                     #{item.priimek}
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Email</f:facet>
                     #{item.email}
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Kvota pacientov</f:facet>
                     #{item.kvotaPacientov}
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Pacienti</f:facet>
                     <h:dataTable value="#{item.izbraniPacienti}" var="data">
                         <h:column>
-                            [#{data.email}, #{data.ime} #{data.priimek}]
+                            [#{data.email}, #{data.ime} #{data.priimek}] <br />
                         </h:column>
                     </h:dataTable>
                 </h:column>

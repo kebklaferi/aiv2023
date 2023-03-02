@@ -19,21 +19,25 @@
         <h:form>
             <h:dataTable value="#{pacienti.pridobiPacienta}" var="item">
                 <h:column>
+                    <f:facet name="header">Ime</f:facet>
                     #{item.ime}
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Priimek</f:facet>
                     #{item.priimek}
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Email</f:facet>
                         #{item.email}
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Rojstni datum</f:facet>
                     <h:outputText value="#{item.rojstniDatum}">
                         <f:convertDateTime pattern = "dd-mm-yyyy" />
                     </h:outputText>
-
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Posebnosti</f:facet>
                     #{item.posebnosti}
                 </h:column>
             </h:dataTable>
