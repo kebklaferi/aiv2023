@@ -12,9 +12,25 @@
     <h1>Zdravniki</h1>
 
     <f:view>
-
-        <h:outputText value="#{sample.sayHi}" />
-
+    <a href="#{facesContext.externalContext.applicationContextPath}/ezdravje/dodajZdravnika.xhtml">[dodaj zdravnika]</a>
+    <h:link outcome="index.html" value="Začetna stran"/>
+    <h3>Vsi zdravniki:</h3>
+    <h:form>
+        <h:dataTable value="#{zdravniki.vseZdravnike}" var="item">
+            <h:column>
+                #{item.ime}
+            </h:column>
+            <h:column>
+                #{item.priimek}
+            </h:column>
+            <h:column>
+                <h:outputLink value="podrobnostiZdravnik.xhtml">
+                    <f:param name="email" value="#{item.email}"/>
+                    #{item.email}
+                </h:outputLink>
+            </h:column>
+        </h:dataTable>
+    </h:form>
     </f:view>
 
 </h:body>

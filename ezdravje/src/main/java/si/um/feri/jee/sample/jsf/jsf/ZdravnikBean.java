@@ -4,43 +4,90 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import si.um.feri.jee.sample.jsf.dao.ZdravnikDAO;
 import si.um.feri.jee.sample.jsf.dao.ZdravnikMemoryDao;
+import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-@Named("zdravnik")
+@Named("zdravniki")
 @SessionScoped
 public class ZdravnikBean implements Serializable {
     private ZdravnikDAO zdrDao = ZdravnikMemoryDao.getInstance();
-    private Zdravnik zdr = new Zdravnik();
-    private String email;
+    private Zdravnik izbranZdravnik = new Zdravnik();
+    private Zdravnik podrobnostiZdravnik = new Zdravnik();
+    private String izbranEmail;
+    private List<Pacient> izbraniPacienti = new ArrayList<>();
 
-    public List<Zdravnik> pridobiVseZdravnike(){
+    public List<Zdravnik> getVseZdravnike(){
         return zdrDao.pridobiVseZdravnike();
     }
 
-    public void ustvariZdravnika(){
-        zdrDao.dodajZdravnika(zdr);
+    public String ustvariZdravnika(){
+        if(preveriEmail(izbranZdravnik.getEmail()))
+            return "";
+        zdrDao.dodajZdravnika(izbranZdravnik);
+        izbranZdravnik = new Zdravnik();
+        return "zdravniki.xhtml";
     }
 
-    public Zdravnik getZdr() {
-        return zdr;
+    public boolean preveriEmail(String email){
+        return zdrDao.preveriEmail(email);
+    }
+    private boolean ponovljenMail(){
+        if(podrobnostiZdravnik.getEmail().equals(izbranEmail)){
+            return false;
+        }
+        return true;
+    }
+    public Zdravnik getPodrobnostiZdravnika(){
+        if (this.ponovljenMail()){
+            podrobnostiZdravnik = new Zdravnik();
+        }
+        podrobnostiZdravnik = zdrDao.pridobiZdravnika(izbranEmail);
+        if(podrobnostiZdravnik == null)
+            return null;
+        return podrobnostiZdravnik;
     }
 
-    public void setZdr(Zdravnik zdr) {
-        this.zdr = zdr;
+    public String dodajPacienteZdravniku(){
+        izbraniPacienti.forEach(pac -> {
+            zdrDao.dodajPacienta(pac, izbranEmail);
+        });
+        izbraniPacienti = new ArrayList<>();
+        return "podrobnostiZdravnik.xhtml";
     }
 
-    public String getEmail() {
-        return email;
+    public Zdravnik getIzbranZdravnik() {
+        return izbranZdravnik;
     }
 
-    public void setEmail(String email) {
-        zdr = zdrDao.pridobiZdravnika(email);
-        if(zdr != null)
-            this.email = email;
-        else
-            zdr = new Zdravnik();
+    public void setIzbranZdravnik(Zdravnik izbranZdravnik) {
+        this.izbranZdravnik = izbranZdravnik;
+    }
+
+    public String getIzbranEmail() {
+        return izbranEmail;
+    }
+
+    public void setIzbranEmail(String izbranEmail) {
+        this.izbranEmail = izbranEmail;
+    }
+
+    public Zdravnik getPodrobnostiZdravnik() {
+        return podrobnostiZdravnik;
+    }
+
+    public void setPodrobnostiZdravnik(Zdravnik podrobnostiZdravnik) {
+        this.podrobnostiZdravnik = podrobnostiZdravnik;
+    }
+
+    public List<Pacient> getIzbraniPacienti() {
+        return izbraniPacienti;
+    }
+
+    public void setIzbraniPacienti(List<Pacient> izbraniPacienti) {
+        this.izbraniPacienti = izbraniPacienti;
     }
 }

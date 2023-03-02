@@ -10,15 +10,16 @@
 
 <h:body>
     <h1>Pacienti</h1>
-    <a href="index.html">Page</a>
+    <h:link outcome="index.html" value="Začetna stran"/>
     <f:view>
         <h:form>
             Ime: <h:inputText id="p_ime" value="#{pacienti.izbranPacient.ime}"/> <br />
             Priimek: <h:inputText id="p_priimek" value="#{pacienti.izbranPacient.priimek}"/> <br />
             E-mail: <h:inputText id="p_email" value="#{pacienti.izbranPacient.email}" validatorMessage="Napaka">
                     <f:validateRequired />
-                </h:inputText > * <h:message for="p_email" style="color:red" />
-
+                </h:inputText > * <h:message for="p_email" style="color:red" /><br />
+            Rojstni datum: <h:inputText value="#{pacienti.izbranPacient.rojstniDatum}"><f:convertDateTime pattern = "dd-mm-yyyy" /></h:inputText><br />
+            Posebnosti <h:inputTextarea  value="#{pacienti.izbranPacient.posebnosti}"/><br />
             <h:commandButton value="Ustvari" action="#{pacienti.ustvariPacienta}"/>
         </h:form>
 

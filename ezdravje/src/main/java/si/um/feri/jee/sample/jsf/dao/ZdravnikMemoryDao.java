@@ -20,6 +20,15 @@ public class ZdravnikMemoryDao implements ZdravnikDAO{
     }
 
     @Override
+    public boolean preveriEmail(String email) {
+        for(Zdravnik z: zdravniki){
+            if(z.getEmail().equals(email))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     public void izbrisiZdravnika(Zdravnik zdravnik) {
         for(Zdravnik z: zdravniki){
             if(z.getEmail().equals(zdravnik.getEmail()))
@@ -49,12 +58,16 @@ public class ZdravnikMemoryDao implements ZdravnikDAO{
     }
 
     @Override
-    public void dodajPacienta(Pacient pacient, Zdravnik zdravnik) {
+    public void dodajPacienta(Pacient pacient, String email) {
         for(Zdravnik z: zdravniki){
-            if(z.getEmail().equals(zdravnik.getEmail())){
+            if(z.getEmail().equals(email)){
+                //potrebno preverit ali ima ze nek drug zdravnik tega pacienta oz ali je pacient ze dodan temu zdravniku
+                for(Pacient p: z.getIzbraniPacienti()){
+                    if(p.equals(pacient))
+                        return;
+                }
                 z.getIzbraniPacienti().add(pacient);
             }
-            else return;
         }
     }
 }

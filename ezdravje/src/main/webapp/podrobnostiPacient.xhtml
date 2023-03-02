@@ -5,17 +5,19 @@
 
 <h:head>
     <meta charset="UTF-8" />
-    <title>Pacienti</title>
+    <title>Podrobnosti</title>
 </h:head>
 
 <h:body>
-    <h1>Pacienti</h1>
-    <a href="#{facesContext.externalContext.applicationContextPath}/ezdravje/dodajPacienta.xhtml">[dodaj pacienta]</a>
+    <h1>Podrobnosti o pacientu: #{pacienti.pridobiPacienta.ime} #{pacienti.pridobiPacienta.priimek}</h1>
+
     <f:view>
         <h:link outcome="index.html" value="Začetna stran"/>
-        <h3>Vsi pacienti:</h3>
+        <f:metadata>
+            <f:viewParam name="email" value="#{pacienti.izbranEmail}" />
+        </f:metadata>
         <h:form>
-            <h:dataTable value="#{pacienti.vsePaciente}" var="item">
+            <h:dataTable value="#{pacienti.pridobiPacienta}" var="item">
                 <h:column>
                     #{item.ime}
                 </h:column>
@@ -23,10 +25,7 @@
                     #{item.priimek}
                 </h:column>
                 <h:column>
-                    <h:outputLink value="podrobnostiPacient.xhtml">
-                        <f:param name="email" value="#{item.email}"/>
                         #{item.email}
-                    </h:outputLink>
                 </h:column>
                 <h:column>
                     <h:outputText value="#{item.rojstniDatum}">
@@ -39,6 +38,8 @@
                 </h:column>
             </h:dataTable>
         </h:form>
+
+
     </f:view>
 
 </h:body>

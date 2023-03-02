@@ -10,7 +10,7 @@ public class PacientMemoryDao implements PacientDAO{
 
     private List<Pacient> pacienti;
     private PacientMemoryDao(){
-        pacienti = Collections.synchronizedList(new ArrayList<Pacient>());
+        pacienti = Collections.synchronizedList(new ArrayList<>());
     }
     private static PacientMemoryDao instance = new PacientMemoryDao();
 
@@ -23,14 +23,14 @@ public class PacientMemoryDao implements PacientDAO{
         pacienti.add(pacient);
     }
 
+    // -1,5h, ker sem pozabla {} :D
     @Override
     public Pacient pridobiPacienta(String email) {
         for(Pacient p: pacienti){
-            if(p.getEmail().equals(email))
-                System.out.println("ISTI");
+            if(p.getEmail().equals(email)) {
                 return p;
+            }
         }
-        System.out.println("NOV");
         return null;
     }
 
