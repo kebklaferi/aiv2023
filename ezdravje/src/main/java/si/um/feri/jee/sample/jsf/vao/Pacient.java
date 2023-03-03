@@ -8,12 +8,14 @@ public class Pacient {
     private String email;
     private Date rojstniDatum;
     private String posebnosti;
+    private Zdravnik osebniZdravnik;
     public Pacient(){
         this.ime = "";
         this.priimek = "";
         this.email = "";
         this.rojstniDatum = null;
         this.posebnosti = "";
+        this.osebniZdravnik = null;
     }
     public Pacient(String ime, String priimek, String email, Date rojstniDatum, String posebnosti){
         this.ime = ime;
@@ -21,6 +23,7 @@ public class Pacient {
         this.email = email;
         this.rojstniDatum = rojstniDatum;
         this.posebnosti = posebnosti;
+        this.osebniZdravnik = null;
     }
 
     public String getIme() {
@@ -61,5 +64,13 @@ public class Pacient {
 
     public void setPosebnosti(String posebnosti) {
         this.posebnosti = posebnosti;
+    }
+
+    public Zdravnik getOsebniZdravnik() {
+        return osebniZdravnik;
+    }
+
+    public void setOsebniZdravnik(Zdravnik osebniZdravnik) {
+        this.osebniZdravnik = osebniZdravnik;
     }
 }

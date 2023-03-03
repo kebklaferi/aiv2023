@@ -25,10 +25,10 @@ public class PacientBean implements Serializable {
 
     public String ustvariPacienta(){
         if (preveriEmail(izbranPacient.getEmail()))
-            return "";
+            return "/ezdravje/pacienti.xhtml";
         pacDao.dodajPacienta(izbranPacient);
         izbranPacient = new Pacient();
-        return "pacienti.xhtml";
+        return "/ezdravje/pacienti.xhtml";
     }
 
     public Pacient getPridobiPacienta(){

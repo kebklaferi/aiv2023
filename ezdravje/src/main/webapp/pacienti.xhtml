@@ -23,8 +23,14 @@
                             <li class="nav-item">
                                 <h:link class="nav-link active" outcome="index.html" value="ZAČETNA STRAN"></h:link>
                             </li>
+                            <li class="nav-item">
+                                <h:link class="nav-link active" outcome="/nav/neopredeljeniPacienti.xhtml" value="NEOPREDELJENI PACIENTI"></h:link>
+                            </li>
+                            <li class="nav-item">
+                                <h:link class="nav-link active" outcome="/nav/opredeljeniPacienti.xhtml" value="OPREDELJENI PACIENTI"></h:link>
+                            </li>
                         </ul>
-                        <a class="nav-link active" href="#{facesContext.externalContext.applicationContextPath}/ezdravje/dodajPacienta.xhtml">DODAJ PACIENTA</a>
+                        <h:link class="nav-link active" outcome="/rest/dodajPacienta.xhtml" value="DODAJ PACIENTA" />
                     </div>
                 </div>
             </nav>

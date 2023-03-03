@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Pacienti</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</h:head>
+
+<h:body>
+    <f:view>
+        <div class="container">
+            <h2 class="display-6 text-center mt-3">E-zdravje</h2>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <h:link class="nav-link active" outcome="/ezdravje/index.html" value="ZAČETNA STRAN" />
+                            </li>
+                            <li class="nav-item">
+                                <h:link class="nav-link active" outcome="/ezdravje/pacienti.xhtml" value="PACIENTI" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <p class="fs-5 text-center mt-3 font-monospace pt-3">DODAJ PACIENTA</p>
+            <h:form>
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">E-mail</label>
+                    <h:inputText type="email" class="form-control" id="inputEmail" value="#{pacienti.izbranPacient.email}" validatorMessage="Vnesite email">
+                        <f:validateRequired />
+                    </h:inputText><h:message for="inputEmail" style="color:red" />
+                </div>
+                <div class="mb-3">
+                    <label for="inputIme" class="form-label">Ime</label>
+                    <h:inputText type="text" class="form-control" id="inputIme" value="#{pacienti.izbranPacient.ime}"/>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPriimek" class="form-label">Priimek</label>
+                    <h:inputText type="text" class="form-control" id="inputPriimek" value="#{pacienti.izbranPacient.priimek}"/>
+                </div>
+                <div class="mb-3">
+                    <label for="inputDatum" class="form-label">Datum rojstva</label>
+                    <h:inputText type="text" class="form-control" id="inputDatum" value="#{pacienti.izbranPacient.rojstniDatum}">
+                        <f:convertDateTime pattern = "dd-mm-yyyy" />
+                    </h:inputText>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPosebnosti" class="form-label">Posebnosti</label>
+                    <h:inputTextarea type="text" class="form-control" id="inputPosebnosti" value="#{pacienti.izbranPacient.posebnosti}"/>
+                </div>
+                <h:commandButton class="btn btn-primary" type="submit" value="Ustvari" action="#{pacienti.ustvariPacienta}"/>
+            </h:form>
+        </div>
+        <fotter class="container-fluid">
+            to je footer
+        </fotter>
+    </f:view>
+</h:body>
+</html>

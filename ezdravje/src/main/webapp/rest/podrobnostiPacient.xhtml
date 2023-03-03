@@ -11,15 +11,15 @@
 </h:head>
 
 <h:body>
-    <h1>Podrobnosti o zdravniku: #{zdravniki.podrobnostiZdravnika.ime} #{zdravniki.podrobnostiZdravnika.priimek}</h1>
+    <h1>Podrobnosti o pacientu: #{pacienti.pridobiPacienta.ime} #{pacienti.pridobiPacienta.priimek}</h1>
 
     <f:view>
-        <h:link outcome="index.html" value="Začetna stran"/>
+        <h:link outcome="/ezdravje/index.html" value="Začetna stran"/>
         <f:metadata>
-            <f:viewParam name="email" value="#{zdravniki.izbranEmail}" />
+            <f:viewParam name="email" value="#{pacienti.izbranEmail}" />
         </f:metadata>
         <h:form>
-            <h:dataTable value="#{zdravniki.podrobnostiZdravnika}" var="item">
+            <h:dataTable value="#{pacienti.pridobiPacienta}" var="item">
                 <h:column>
                     <f:facet name="header">Ime</f:facet>
                     #{item.ime}
@@ -30,29 +30,27 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Email</f:facet>
-                    #{item.email}
+                        #{item.email}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Kvota pacientov</f:facet>
-                    #{item.kvotaPacientov}
+                    <f:facet name="header">Rojstni datum</f:facet>
+                    <h:outputText value="#{item.rojstniDatum}">
+                        <f:convertDateTime pattern = "dd-mm-yyyy" />
+                    </h:outputText>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Pacienti</f:facet>
-                    <h:dataTable value="#{item.izbraniPacienti}" var="data">
-                        <h:column>
-                            [#{data.email}, #{data.ime} #{data.priimek}] <br />
-                        </h:column>
-                    </h:dataTable>
+                    <f:facet name="header">Posebnosti</f:facet>
+                    #{item.posebnosti}
                 </h:column>
                 <h:column>
-                    [uredi]
+                    <f:facet name="header">Osebni zdravnik</f:facet>
+                    <h:outputText value="#{item.osebniZdravnik.email}"/>
                 </h:column>
                 <h:column>
-                    <h:outputLink value="noviPacienti.xhtml">
-                        <f:param name="email" value="#{item.email}"/>
-                        [dodaj pacienta]
-                    </h:outputLink>
-
+                    <h:outputText value="[uredi]" />
+                </h:column>
+                <h:column>
+                    <h:outputText value="[izbrisi]" />
                 </h:column>
             </h:dataTable>
         </h:form>

@@ -29,7 +29,7 @@ public class ZdravnikBean implements Serializable {
             return "";
         zdrDao.dodajZdravnika(izbranZdravnik);
         izbranZdravnik = new Zdravnik();
-        return "zdravniki.xhtml";
+        return "/ezdravje/zdravniki.xhtml";
     }
 
     public boolean preveriEmail(String email){
@@ -54,6 +54,7 @@ public class ZdravnikBean implements Serializable {
     public String dodajPacienteZdravniku(){
         izbraniPacienti.forEach(pac -> {
             zdrDao.dodajPacienta(pac, izbranEmail);
+            pac.setOsebniZdravnik(podrobnostiZdravnik);
         });
         izbraniPacienti = new ArrayList<>();
         return "podrobnostiZdravnik.xhtml";

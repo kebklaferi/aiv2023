@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Podrobnosti</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</h:head>
+
+<h:body>
+    <h1>Podrobnosti o zdravniku: #{zdravniki.podrobnostiZdravnika.ime} #{zdravniki.podrobnostiZdravnika.priimek}</h1>
+
+    <f:view>
+        <h:link outcome="/ezdravje/index.html" value="Začetna stran"/>
+        <f:metadata>
+            <f:viewParam name="email" value="#{zdravniki.izbranEmail}" />
+        </f:metadata>
+        <h:form>
+            <h:dataTable value="#{zdravniki.podrobnostiZdravnika}" var="item">
+                <h:column>
+                    <f:facet name="header">Ime</f:facet>
+                    #{item.ime}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Priimek</f:facet>
+                    #{item.priimek}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    #{item.email}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Kvota pacientov</f:facet>
+                    #{item.kvotaPacientov}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Pacienti</f:facet>
+                    <h:dataTable value="#{item.izbraniPacienti}" var="data">
+                        <h:column>
+                            [#{data.email}, #{data.ime} #{data.priimek}] <br />
+                        </h:column>
+                    </h:dataTable>
+                </h:column>
+                <h:column>
+                    [uredi]
+                </h:column>
+                <h:column>
+                    <h:outputLink value="noviPacienti.xhtml">
+                        <f:param name="email" value="#{item.email}"/>
+                        [dodaj pacienta]
+                    </h:outputLink>
+                </h:column>
+                <h:column>
+                    <h:outputText value="[uredi]" />
+                </h:column>
+                <h:column>
+                    <h:outputText value="[izbrisi]" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+
+    </f:view>
+
+</h:body>
+
+</html>
