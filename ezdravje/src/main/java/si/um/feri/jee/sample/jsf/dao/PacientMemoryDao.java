@@ -1,6 +1,7 @@
 package si.um.feri.jee.sample.jsf.dao;
 
 import si.um.feri.jee.sample.jsf.vao.Pacient;
+import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,14 +41,31 @@ public class PacientMemoryDao implements PacientDAO{
     }
 
     @Override
-    public void izbrisiPacienta(Pacient pacient) {
+    public void izbrisiPacienta(String email) {
+        Pacient izb = pridobiPacienta(email);
         for(Pacient p: pacienti){
-            if(p.getEmail().equals(pacient.getEmail()))
+            if(p == izb){
+                Zdravnik ose = p.getOsebniZdravnik();
+                if(ose != null)
+                    ose.getIzbraniPacienti().remove(p);
                 pacienti.remove(p);
-            else if(p.getEmail() == null || pacient.getEmail() == null)
-                return;
+                break;
+            }
         }
     }
+     @Override
+    public void urediPacienta(String email){
+
+    }
+
+
+    @Override
+    public void posodobiEmail(String stari, String novi) {
+        System.out.println("stari mail" + stari);
+        Pacient izbran = pridobiPacienta(stari);
+        izbran.setEmail(novi);
+    }
+
 
     @Override
     public boolean preveriEmail(String email) {

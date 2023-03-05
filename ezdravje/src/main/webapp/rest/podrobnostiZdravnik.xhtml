@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html
         xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:f="http://xmlns.jcp.org/jsf/core">
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <meta charset="UTF-8" />
@@ -11,58 +12,72 @@
 </h:head>
 
 <h:body>
-    <h1>Podrobnosti o zdravniku: #{zdravniki.podrobnostiZdravnika.ime} #{zdravniki.podrobnostiZdravnika.priimek}</h1>
-
     <f:view>
-        <h:link outcome="/ezdravje/index.html" value="Začetna stran"/>
-        <f:metadata>
-            <f:viewParam name="email" value="#{zdravniki.izbranEmail}" />
-        </f:metadata>
-        <h:form>
-            <h:dataTable value="#{zdravniki.podrobnostiZdravnika}" var="item">
-                <h:column>
-                    <f:facet name="header">Ime</f:facet>
-                    #{item.ime}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Priimek</f:facet>
-                    #{item.priimek}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Email</f:facet>
-                    #{item.email}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Kvota pacientov</f:facet>
-                    #{item.kvotaPacientov}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Pacienti</f:facet>
-                    <h:dataTable value="#{item.izbraniPacienti}" var="data">
-                        <h:column>
-                            [#{data.email}, #{data.ime} #{data.priimek}] <br />
-                        </h:column>
-                    </h:dataTable>
-                </h:column>
-                <h:column>
-                    [uredi]
-                </h:column>
-                <h:column>
-                    <h:outputLink value="noviPacienti.xhtml">
-                        <f:param name="email" value="#{item.email}"/>
-                        [dodaj pacienta]
-                    </h:outputLink>
-                </h:column>
-                <h:column>
-                    <h:outputText value="[uredi]" />
-                </h:column>
-                <h:column>
-                    <h:outputText value="[izbrisi]" />
-                </h:column>
-            </h:dataTable>
-        </h:form>
-
-
+        <div class="container">
+            <h2 class="display-6 text-center mt-3">E-zdravje</h2>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <h:link class="nav-link active" outcome="/ezdravje/index.html" value="ZAČETNA STRAN" />
+                            </li>
+                            <li class="nav-item">
+                                <h:link class="nav-link active" outcome="/ezdravje/zdravniki.xhtml" value="ZDRAVNIKI" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <p class="fs-5 text-center mt-3 font-monospace pt-3">PODROBNOSTI O ZDRAVNIKU: #{zdravniki.podrobnostiZdravnika.ime} #{zdravniki.podrobnostiZdravnika.priimek}</p>
+            <f:metadata>
+                <f:viewParam name="email" value="#{zdravniki.izbranEmail}" />
+            </f:metadata>
+            <h:form>
+                <p:dataTable class="mt-3" value="#{zdravniki.podrobnostiZdravnika}" var="item">
+                    <p:column>
+                        <f:facet name="header">Ime</f:facet>
+                        <h:outputText value="#{item.ime}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Priimek</f:facet>
+                        <h:outputText value="#{item.priimek}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Email</f:facet>
+                        <h:outputText value="#{item.email}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Kvota pacientov</f:facet>
+                        <h:outputText value="#{item.kvotaPacientov}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Pacienti</f:facet>
+                        <h:dataTable value="#{item.izbraniPacienti}" var="data">
+                            <h:column>
+                                <h:outputText value="#{data.email}, #{data.ime} #{data.priimek}" />
+                            </h:column>
+                        </h:dataTable>
+                    </p:column>
+                    <p:column>
+                        <h:outputLink value="/sampleProject/ezdravje/rest/noviPacienti.xhtml">
+                            <f:param name="email" value="#{item.email}"/>
+                            <h:outputText value="[dodaj pacienta]"/>
+                        </h:outputLink>
+                    </p:column>
+                    <p:column>
+                        <h:outputLink value="/sampleProject/ezdravje/rest/urediZdravnika.xhtml">
+                            <f:param name="email" value="#{item.email}"/>
+                            <f:param name="urejanje" value="true"/>
+                            <h:outputText value="uredi"/>
+                        </h:outputLink>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton actionListener="#{zdravniki.potrdiIzbris}" action="/ezdravje/zdravniki.xhtml" value="izbrisi" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
     </f:view>
 
 </h:body>

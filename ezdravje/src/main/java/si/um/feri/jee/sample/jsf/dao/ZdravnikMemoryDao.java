@@ -29,14 +29,19 @@ public class ZdravnikMemoryDao implements ZdravnikDAO{
     }
 
     @Override
-    public void izbrisiZdravnika(Zdravnik zdravnik) {
-        for(Zdravnik z: zdravniki){
-            if(z.getEmail().equals(zdravnik.getEmail()))
-                zdravniki.remove(z);
-            else if(z.getEmail() == null || zdravnik.getEmail() == null)
-                return;
-        }
+    public void izbrisiZdravnika(String email) {
+       Zdravnik izb = pridobiZdravnika(email);
+       for(Zdravnik z: zdravniki){
+           if (z == izb){
+               z.getIzbraniPacienti().forEach(paci -> {
+                   paci.setOsebniZdravnik(null);
+               });
+               zdravniki.remove(z);
+               break;
+           }
+       }
     }
+
 
     @Override
     public Zdravnik pridobiZdravnika(String email) {
@@ -69,5 +74,11 @@ public class ZdravnikMemoryDao implements ZdravnikDAO{
                 z.getIzbraniPacienti().add(pacient);
             }
         }
+    }
+
+    @Override
+    public void posodobiEmail(String stari, String novi) {
+        Zdravnik izbran = pridobiZdravnika(stari);
+        izbran.setEmail(novi);
     }
 }

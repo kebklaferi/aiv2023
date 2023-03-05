@@ -5,6 +5,7 @@ import jakarta.inject.Named;
 import si.um.feri.jee.sample.jsf.dao.PacientDAO;
 import si.um.feri.jee.sample.jsf.dao.PacientMemoryDao;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
+import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
 
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class PacientBean implements Serializable {
     private Pacient izbranPacient = new Pacient();
     private Pacient posamezenPacient = new Pacient();
     private String izbranEmail;
+    private boolean urejanje = false;
 
     public List<Pacient> getVsePaciente(){
         return pacDao.pridobiVsePaciente();
@@ -32,20 +34,46 @@ public class PacientBean implements Serializable {
     }
 
     public Pacient getPridobiPacienta(){
-        if (this.ponovljenMail()){
+        if (!this.stariIzbranMail()){
             posamezenPacient = new Pacient();
         }
         posamezenPacient = pacDao.pridobiPacienta(izbranEmail);
-        if(posamezenPacient == null)
+        if(posamezenPacient == null){
+            posamezenPacient = new Pacient();
             return null;
+        }
         return posamezenPacient;
     }
 
-    private boolean ponovljenMail(){
+    private boolean stariIzbranMail(){
         if(posamezenPacient.getEmail().equals(izbranEmail)){
-            return false;
+            return true;
         }
-        return true;
+        return false;
+    }
+    public void potrdiIzbris(){
+        System.out.println("brisemo");
+       pacDao.izbrisiPacienta(izbranEmail);
+    }
+    public void potrdiUrejanje(){
+        System.out.println("urejam");
+
+    }
+
+    private Zdravnik preveriObstojZdravnika(){
+        Zdravnik osebni = posamezenPacient.getOsebniZdravnik();
+        System.out.println("preverjam ce osebni zdravnik obstaja");
+        if(osebni == null)
+            return new Zdravnik();
+        return osebni;
+    }
+
+    public boolean isUrejanje() {
+        return urejanje;
+    }
+
+    public void setUrejanje(boolean urejanje) {
+        this.urejanje = urejanje;
     }
 
     public Pacient getIzbranPacient() {
@@ -65,6 +93,14 @@ public class PacientBean implements Serializable {
     }
 
     public void setIzbranEmail(String email) {
+        if(this.izbranEmail != null && !this.izbranEmail.equals(email)){
+            if(urejanje){
+                pacDao.posodobiEmail(izbranEmail, email);
+                this.izbranEmail = email;
+                urejanje = false;
+                System.out.println("V SET IZBRAN MAIL");
+            }
+        }
         this.izbranEmail = email;
     }
 }

@@ -62,18 +62,14 @@
                         <h:outputText value="#{item.osebniZdravnik.email}"/>
                     </p:column>
                     <p:column>
-                        <!--<h:outputLink value="/sampleProject/ezdravje/rest/podrobnostiPacient.xhtml">
+                        <h:outputLink value="/sampleProject/ezdravje/rest/urediPacienta.xhtml">
                             <f:param name="email" value="#{item.email}"/>
-                            <h:outputText value="#{item.email}"/>
-                        </h:outputLink>-->
-                        <h:outputText value="[uredi]" />
+                            <f:param name="urejanje" value="true"/>
+                            <h:outputText value="uredi"/>
+                        </h:outputLink>
                     </p:column>
                     <p:column>
-                        <!--<h:outputLink value="/sampleProject/ezdravje/rest/podrobnostiPacient.xhtml">
-                            <f:param name="email" value="#{item.email}"/>
-                            <h:outputText value="#{item.email}"/>
-                        </h:outputLink>-->
-                        <h:outputText value="[izbrisi]" />
+                        <p:commandButton actionListener="#{pacienti.potrdiIzbris}" action="/ezdravje/pacienti.xhtml" value="izbrisi" />
                     </p:column>
                 </p:dataTable>
             </h:form>
