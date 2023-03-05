@@ -75,6 +75,14 @@ public class ZdravnikMemoryDao implements ZdravnikDAO{
             }
         }
     }
+    public List<Zdravnik> vrniOpredeljenePaciente(){
+        List<Zdravnik> zdrav = new ArrayList<>();
+        zdravniki.forEach(z -> {
+            if(z.getIzbraniPacienti().size() != 0)
+                zdrav.add(z);
+        });
+        return zdrav;
+    }
 
     @Override
     public void posodobiEmail(String stari, String novi) {

@@ -53,11 +53,14 @@ public class PacientMemoryDao implements PacientDAO{
             }
         }
     }
-     @Override
-    public void urediPacienta(String email){
-
+    public List<Pacient> vrniNeopredeljenePaciente(){
+        List<Pacient> neopredeljeni = new ArrayList<>();
+        pacienti.forEach(pac -> {
+            if(pac.getOsebniZdravnik() == null)
+                neopredeljeni.add(pac);
+        });
+        return neopredeljeni;
     }
-
 
     @Override
     public void posodobiEmail(String stari, String novi) {

@@ -31,6 +31,12 @@
                 </div>
             </nav>
             <p class="fs-5 text-center mt-3 font-monospace pt-3">NEOPREDELJENI PACIENTI</p>
+            <p:dataTable value="#{pacienti.neopredeljenePaciente}" var="item">
+                <p:column>
+                    <f:facet name="Email" />
+                    <h:outputText value="#{item.email}" />
+                </p:column>
+            </p:dataTable>
         </div>
     </f:view>
 </h:body>

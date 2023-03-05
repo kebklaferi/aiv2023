@@ -59,6 +59,9 @@ public class PacientBean implements Serializable {
         System.out.println("urejam");
 
     }
+    public List<Pacient> getNeopredeljenePaciente(){
+        return pacDao.vrniNeopredeljenePaciente();
+    }
 
     private Zdravnik preveriObstojZdravnika(){
         Zdravnik osebni = posamezenPacient.getOsebniZdravnik();

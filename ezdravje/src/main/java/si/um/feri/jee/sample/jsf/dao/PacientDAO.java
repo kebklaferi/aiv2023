@@ -9,6 +9,6 @@ public interface PacientDAO {
     List<Pacient> pridobiVsePaciente();
     void izbrisiPacienta(String email);
     boolean preveriEmail(String email);
-    void urediPacienta(String email);
     void posodobiEmail(String stari, String novi);
+    List<Pacient> vrniNeopredeljenePaciente();
 }

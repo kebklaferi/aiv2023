@@ -67,6 +67,10 @@ public class ZdravnikBean implements Serializable {
         return "podrobnostiZdravnik.xhtml";
     }
 
+    public List<Zdravnik> getOpredeljenePaciente(){
+        return zdrDao.vrniOpredeljenePaciente();
+    }
+
     public void potrdiIzbris(){
         System.out.println("brisemo");
         zdrDao.izbrisiZdravnika(izbranEmail);

@@ -14,5 +14,6 @@ public interface ZdravnikDAO {
     void dodajZdravnika(Zdravnik zdravnik);
     void dodajPacienta(Pacient pacient, String email);
     void posodobiEmail(String stari, String novi);
+    List<Zdravnik> vrniOpredeljenePaciente();
 
 }
