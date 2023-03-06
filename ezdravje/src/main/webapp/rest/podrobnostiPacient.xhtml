@@ -69,7 +69,15 @@
                         </h:outputLink>
                     </p:column>
                     <p:column>
-                        <p:commandButton actionListener="#{pacienti.potrdiIzbris}" action="/ezdravje/pacienti.xhtml" value="izbrisi" />
+                        <div class="card">
+                            <p:commandButton styleClass="ui-button-danger ui-button-flat" value="izbriši" actionListener="#{pacienti.potrdiIzbris}" action="/ezdravje/pacienti.xhtml">
+                                <p:confirm type="popup" header="Potrditev izbrisa" message="Ste prepričani, da želite nadaljevati?" icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                            <p:confirmPopup global="true">
+                                <p:commandButton value="da" type="button" styleClass="ui-confirm-popup-yes"/>
+                                <p:commandButton value="ne" type="button" styleClass="ui-confirm-popup-no ui-button-flat" />
+                            </p:confirmPopup>
+                        </div>
                     </p:column>
                 </p:dataTable>
             </h:form>
