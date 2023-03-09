@@ -2,7 +2,8 @@
 <html
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:f="http://xmlns.jcp.org/jsf/core"
-        xmlns:p="http://primefaces.org/ui">
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:o="http://omnifaces.org/ui">
 
 <h:head>
     <meta charset="UTF-8" />
@@ -61,9 +62,9 @@
                 </div>
                 <div class="field col-12 md:col-4">
                     <p:outputLabel for="@next" value="Osebni zdravniki:"/>
-                    <p:selectOneMenu id="group" value="#{pacienti.osebZdravnikMail}">
+                    <p:selectOneMenu id="group" value="#{pacienti.izbranOsebZdravnik}" converter="omnifaces.SelectItemsConverter">
                         <f:selectItem itemLabel="Izberi zdravnika" itemValue=""/>
-                        <f:selectItems var="data" itemValue="#{data.email}" value="#{zdravniki.vseZdravnike}" itemLabel="#{data.email}"/>
+                        <f:selectItems var="data" itemValue="#{data}" value="#{zdravniki.mozniZdravniki}" itemLabel="#{data.email}"/>
                     </p:selectOneMenu>
                 </div>
                 <h:commandButton class="btn btn-primary" type="submit" value="Potrdi urejenje" actionListener="#{pacienti.potrdiUrejanje}"  action="/ezdravje/pacienti.xhtml"/>

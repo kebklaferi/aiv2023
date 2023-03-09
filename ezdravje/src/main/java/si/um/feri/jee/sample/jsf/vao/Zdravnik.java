@@ -1,8 +1,7 @@
 package si.um.feri.jee.sample.jsf.vao;
-
 import java.util.ArrayList;
 
-public class Zdravnik {
+public class Zdravnik{
     private String ime;
     private String priimek;
     private String email;

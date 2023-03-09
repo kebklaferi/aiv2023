@@ -22,6 +22,7 @@ public class ZdravnikBean implements Serializable {
     private Zdravnik podrobnostiZdravnik = new Zdravnik();
     private String izbranEmail;
     private List<Pacient> izbraniPacienti = new ArrayList<>();
+    private List<Zdravnik> mozniZdravniki = new ArrayList<>();
     private boolean urejanje = false;
 
     public List<Zdravnik> getVseZdravnike(){
@@ -59,6 +60,8 @@ public class ZdravnikBean implements Serializable {
     }
 
     public String dodajPacienteZdravniku(){
+        if(!moznostDodajanaPacientov())
+            return "";
         izbraniPacienti.forEach(pac -> {
             zdrDao.dodajPacienta(pac, izbranEmail);
             pac.setOsebniZdravnik(podrobnostiZdravnik);
@@ -74,6 +77,22 @@ public class ZdravnikBean implements Serializable {
     public void potrdiIzbris(){
         System.out.println("brisemo");
         zdrDao.izbrisiZdravnika(izbranEmail);
+    }
+
+    public boolean moznostDodajanaPacientov(){
+        int kvota = podrobnostiZdravnik.getKvotaPacientov();
+        int stPacientov = podrobnostiZdravnik.getIzbraniPacienti().size();
+        if(kvota > stPacientov){
+            if (izbraniPacienti.size() + stPacientov <= kvota)
+                return true;
+        }
+        return false;
+    }
+    public boolean moznostDodajanaPacientov(Zdravnik z){
+        if(z.getKvotaPacientov() > z.getIzbraniPacienti().size()){
+            return true;
+        }
+        return false;
     }
 
     public Zdravnik getIzbranZdravnik() {
@@ -126,5 +145,19 @@ public class ZdravnikBean implements Serializable {
 
     public void setUrejanje(boolean urejanje) {
         this.urejanje = urejanje;
+    }
+
+    public void setMozniZdravniki(List<Zdravnik> mozniZdravniki) {
+        this.mozniZdravniki = mozniZdravniki;
+    }
+
+    public List<Zdravnik> getMozniZdravniki() {
+        List<Zdravnik> nov = new ArrayList<>();
+        zdrDao.pridobiVseZdravnike().forEach(zdr -> {
+            if(moznostDodajanaPacientov(zdr))
+                nov.add(zdr);
+        });
+        mozniZdravniki = nov;
+        return mozniZdravniki;
     }
 }

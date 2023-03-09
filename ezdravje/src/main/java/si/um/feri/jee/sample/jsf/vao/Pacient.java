@@ -1,8 +1,7 @@
 package si.um.feri.jee.sample.jsf.vao;
-
 import java.util.Date;
 
-public class Pacient {
+public class Pacient{
     private String ime;
     private String priimek;
     private String email;

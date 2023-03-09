@@ -4,11 +4,14 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import si.um.feri.jee.sample.jsf.dao.PacientDAO;
 import si.um.feri.jee.sample.jsf.dao.PacientMemoryDao;
+import si.um.feri.jee.sample.jsf.dao.ZdravnikDAO;
+import si.um.feri.jee.sample.jsf.dao.ZdravnikMemoryDao;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +22,6 @@ public class PacientBean implements Serializable {
     private Pacient izbranPacient = new Pacient();
     private Pacient posamezenPacient = new Pacient();
     private Zdravnik izbranOsebZdravnik = null;
-    private String osebZdravnikMail = "";
     private String izbranEmail;
     private boolean urejanje = false;
 
@@ -58,9 +60,14 @@ public class PacientBean implements Serializable {
        pacDao.izbrisiPacienta(izbranEmail);
     }
     public void potrdiUrejanje(){
-        System.out.println("urejam");
-        System.out.println(osebZdravnikMail);
+        if(izbranOsebZdravnik != null){
+            posamezenPacient.setOsebniZdravnik(izbranOsebZdravnik);
+            ArrayList<Pacient> nov = izbranOsebZdravnik.getIzbraniPacienti();
+            nov.add(posamezenPacient);
+            izbranOsebZdravnik.setIzbraniPacienti(nov);
+        }
     }
+
     public List<Pacient> getNeopredeljenePaciente(){
         return pacDao.vrniNeopredeljenePaciente();
     }
@@ -117,11 +124,4 @@ public class PacientBean implements Serializable {
         this.izbranOsebZdravnik = izbranOsebZdravnik;
     }
 
-    public String getOsebZdravnikMail() {
-        return osebZdravnikMail;
-    }
-
-    public void setOsebZdravnikMail(String osebZdravnikMail) {
-        this.osebZdravnikMail = osebZdravnikMail;
-    }
 }
