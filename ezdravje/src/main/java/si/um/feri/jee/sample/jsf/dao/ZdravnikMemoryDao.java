@@ -10,8 +10,10 @@ public class ZdravnikMemoryDao implements ZdravnikDAO{
 
     private List<Zdravnik> zdravniki = new ArrayList<>();
     private ZdravnikMemoryDao(){}
-    private static ZdravnikMemoryDao instance = new ZdravnikMemoryDao();
-    public static ZdravnikMemoryDao getInstance() {
+    private static ZdravnikMemoryDao instance = null;
+    public synchronized static ZdravnikMemoryDao getInstance() {
+        if(instance == null)
+            return new ZdravnikMemoryDao();
         return instance;
     }
     @Override

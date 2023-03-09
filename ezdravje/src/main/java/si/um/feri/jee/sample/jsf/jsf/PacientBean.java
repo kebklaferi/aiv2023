@@ -18,6 +18,8 @@ public class PacientBean implements Serializable {
     private PacientDAO pacDao = PacientMemoryDao.getInstance();
     private Pacient izbranPacient = new Pacient();
     private Pacient posamezenPacient = new Pacient();
+    private Zdravnik izbranOsebZdravnik = null;
+    private String osebZdravnikMail = "";
     private String izbranEmail;
     private boolean urejanje = false;
 
@@ -57,7 +59,7 @@ public class PacientBean implements Serializable {
     }
     public void potrdiUrejanje(){
         System.out.println("urejam");
-
+        System.out.println(osebZdravnikMail);
     }
     public List<Pacient> getNeopredeljenePaciente(){
         return pacDao.vrniNeopredeljenePaciente();
@@ -105,5 +107,21 @@ public class PacientBean implements Serializable {
             }
         }
         this.izbranEmail = email;
+    }
+
+    public Zdravnik getIzbranOsebZdravnik() {
+        return izbranOsebZdravnik;
+    }
+
+    public void setIzbranOsebZdravnik(Zdravnik izbranOsebZdravnik) {
+        this.izbranOsebZdravnik = izbranOsebZdravnik;
+    }
+
+    public String getOsebZdravnikMail() {
+        return osebZdravnikMail;
+    }
+
+    public void setOsebZdravnikMail(String osebZdravnikMail) {
+        this.osebZdravnikMail = osebZdravnikMail;
     }
 }

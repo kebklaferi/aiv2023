@@ -46,6 +46,10 @@
                     <label for="inputPriimek" class="form-label">Priimek</label>
                     <h:inputText type="text" class="form-control" id="inputPriimek" value="#{zdravniki.izbranZdravnik.priimek}"/>
                 </div>
+                <div class="mb-3">
+                    <label for="inputKvota" class="form-label">Kvota pacientov</label>
+                    <h:inputText type="number" class="form-control" id="inputKvota" value="#{zdravniki.izbranZdravnik.kvotaPacientov}"/>
+                </div>
                 <h:commandButton class="btn btn-primary" type="submit" value="Ustvari" action="#{zdravniki.ustvariZdravnika}"/>
             </h:form>
         </div>

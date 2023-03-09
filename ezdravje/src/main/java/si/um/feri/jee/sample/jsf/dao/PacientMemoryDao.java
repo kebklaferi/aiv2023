@@ -13,9 +13,11 @@ public class PacientMemoryDao implements PacientDAO{
     private PacientMemoryDao(){
         pacienti = Collections.synchronizedList(new ArrayList<>());
     }
-    private static PacientMemoryDao instance = new PacientMemoryDao();
+    private static PacientMemoryDao instance = null;
 
-    public synchronized static PacientMemoryDao getInstance(){
+    public synchronized  static PacientMemoryDao getInstance(){
+        if(instance == null)
+            return new PacientMemoryDao();
         return instance;
     }
 

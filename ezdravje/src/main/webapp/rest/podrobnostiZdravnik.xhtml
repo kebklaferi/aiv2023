@@ -43,19 +43,19 @@
                         <f:facet name="header">Priimek</f:facet>
                         <h:outputText value="#{item.priimek}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">Email</f:facet>
-                        <h:outputText value="#{item.email}"/>
+                    <p:column style="width: 220px">
+                        <f:facet style="width: 220px" name="header">Email</f:facet>
+                        <h:outputText style="width: 220px" value="#{item.email}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">Kvota pacientov</f:facet>
                         <h:outputText value="#{item.kvotaPacientov}" />
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">Pacienti</f:facet>
-                        <h:dataTable value="#{item.izbraniPacienti}" var="data">
+                    <p:column style="width: 220px">
+                        <f:facet style="width: 220px" name="header">Pacienti</f:facet>
+                        <h:dataTable style="width: 220px; border: white none" value="#{item.izbraniPacienti}" var="data">
                             <h:column>
-                                <h:outputText value="#{data.email}, #{data.ime} #{data.priimek}" />
+                                <h:outputText value="#{data.email}" />
                             </h:column>
                         </h:dataTable>
                     </p:column>

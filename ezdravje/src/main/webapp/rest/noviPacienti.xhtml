@@ -20,7 +20,7 @@
         <h:form>
             <p>Dodaj pacienta:</p>
             <h:selectManyCheckbox value="#{zdravniki.izbraniPacienti}">
-                <f:selectItems value="#{pacienti.vsePaciente}" var="data" itemLabel="#{data.email} [#{data.ime} #{data.priimek}]" itemValue="#{data}"/>
+                <f:selectItems value="#{pacienti.neopredeljenePaciente}" var="data" itemLabel="#{data.email} [#{data.ime} #{data.priimek}]" itemValue="#{data}"/>
             </h:selectManyCheckbox>
             <h:commandButton value="dodaj" action="#{zdravniki.dodajPacienteZdravniku}"/>
             <h:outputLink value="podrobnostiZdravnik.xhtml">
