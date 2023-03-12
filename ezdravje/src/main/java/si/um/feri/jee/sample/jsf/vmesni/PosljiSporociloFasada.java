@@ -21,12 +21,11 @@ public class PosljiSporociloFasada {
 
     public void sendMail(boolean jePrazno, Zdravnik z, Pacient p) throws MessagingException {
         Message sporocilo = new MimeMessage(session);
-        //sporocilo.setFrom(new InternetAddress("itslionessmc@gmail.com"));
         sporocilo.setSubject("Izbira zdravnika");
         if(jePrazno == true){
             Address[] arr = {new InternetAddress(z.getEmail()), new InternetAddress(p.getEmail())};
             sporocilo.addRecipients(Message.RecipientType.TO, arr);
-            sporocilo.setText("Pozdravljeni, \npacient " + p.getEmail() + " je izbral zdravnika" + z.getEmail() + ".");
+            sporocilo.setText("Pozdravljeni, \npacient " + p.getEmail() + " je izbral zdravnika " + z.getEmail() + ".");
         }
         else{
             sporocilo.addRecipient(Message.RecipientType.TO, new InternetAddress(p.getEmail()));
