@@ -64,7 +64,7 @@
                     <p:outputLabel for="@next" value="Osebni zdravniki:"/>
                     <p:selectOneMenu id="group" value="#{pacienti.izbranOsebZdravnik}" converter="omnifaces.SelectItemsConverter">
                         <f:selectItem itemLabel="Izberi zdravnika" itemValue=""/>
-                        <f:selectItems var="data" itemValue="#{data}" value="#{zdravniki.mozniZdravniki}" itemLabel="#{data.email}"/>
+                        <f:selectItems var="data" itemValue="#{data}" value="#{zdravniki.vseZdravnike}" itemLabel="#{data.email}"/>
                     </p:selectOneMenu>
                 </div>
                 <h:commandButton class="btn btn-primary" type="submit" value="Potrdi urejenje" actionListener="#{pacienti.potrdiUrejanje}"  action="/ezdravje/pacienti.xhtml"/>

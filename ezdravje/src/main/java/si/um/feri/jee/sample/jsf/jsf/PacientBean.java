@@ -2,14 +2,17 @@ package si.um.feri.jee.sample.jsf.jsf;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+import jakarta.mail.MessagingException;
 import si.um.feri.jee.sample.jsf.dao.PacientDAO;
 import si.um.feri.jee.sample.jsf.dao.PacientMemoryDao;
 import si.um.feri.jee.sample.jsf.dao.ZdravnikDAO;
 import si.um.feri.jee.sample.jsf.dao.ZdravnikMemoryDao;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
+import si.um.feri.jee.sample.jsf.vmesni.PosljiSporociloFasada;
 
 
+import javax.naming.NamingException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,13 +62,32 @@ public class PacientBean implements Serializable {
         System.out.println("brisemo");
        pacDao.izbrisiPacienta(izbranEmail);
     }
-    public void potrdiUrejanje(){
+    public void potrdiUrejanje() throws NamingException, MessagingException {
+        /*
         if(izbranOsebZdravnik != null){
             posamezenPacient.setOsebniZdravnik(izbranOsebZdravnik);
             ArrayList<Pacient> nov = izbranOsebZdravnik.getIzbraniPacienti();
             nov.add(posamezenPacient);
             izbranOsebZdravnik.setIzbraniPacienti(nov);
         }
+         */
+        if(izbranOsebZdravnik != null){
+           boolean odg = moznostDodajanaPacientov(izbranOsebZdravnik);
+           PosljiSporociloFasada mail = new PosljiSporociloFasada();
+           mail.sendMail(odg, izbranOsebZdravnik, posamezenPacient);
+           if(odg){
+               posamezenPacient.setOsebniZdravnik(izbranOsebZdravnik);
+               ArrayList<Pacient> nov = izbranOsebZdravnik.getIzbraniPacienti();
+               nov.add(posamezenPacient);
+               izbranOsebZdravnik.setIzbraniPacienti(nov);
+           }
+        }
+    }
+    public boolean moznostDodajanaPacientov(Zdravnik z){
+        if(z.getKvotaPacientov() > z.getIzbraniPacienti().size()){
+            return true;
+        }
+        return false;
     }
 
     public List<Pacient> getNeopredeljenePaciente(){
