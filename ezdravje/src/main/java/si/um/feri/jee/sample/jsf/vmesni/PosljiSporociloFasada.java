@@ -19,9 +19,19 @@ public class PosljiSporociloFasada {
         session = (Session) new InitialContext().lookup("java:jboss/mail/gmail");
     }
 
+    public void sendForUpdatedDoctor(Zdravnik stari, Pacient p) throws MessagingException {
+        Message sporocilo = new MimeMessage(session);
+        sporocilo.setSubject("Opozorilo o spremembi zdravnika");
+        sporocilo.setFrom(new InternetAddress("itslionessmc@gmail.com"));
+        sporocilo.addRecipient(Message.RecipientType.TO,new InternetAddress(p.getEmail()));
+        sporocilo.setText("Odjavili ste se od " + stari.getEmail() + ".");
+        Transport.send(sporocilo);
+    }
+
     public void sendMail(boolean jePrazno, Zdravnik z, Pacient p) throws MessagingException {
         Message sporocilo = new MimeMessage(session);
         sporocilo.setSubject("Izbira zdravnika");
+        sporocilo.setFrom(new InternetAddress("itslionessmc@gmail.com"));
         if(jePrazno == true){
             Address[] arr = {new InternetAddress(z.getEmail()), new InternetAddress(p.getEmail())};
             sporocilo.addRecipients(Message.RecipientType.TO, arr);
