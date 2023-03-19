@@ -1,5 +1,7 @@
 package si.um.feri.jee.sample.jsf.dao;
 
+
+import jakarta.ejb.Stateless;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
@@ -7,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Stateless
 public class PacientMemoryDao implements PacientDAO{
 
     private List<Pacient> pacienti;
     private PacientMemoryDao(){
         pacienti = Collections.synchronizedList(new ArrayList<>());
     }
+    /*
     private static PacientMemoryDao instance = null;
 
     public synchronized  static PacientMemoryDao getInstance(){
@@ -20,6 +24,7 @@ public class PacientMemoryDao implements PacientDAO{
             return new PacientMemoryDao();
         return instance;
     }
+     */
 
     @Override
     public void dodajPacienta(Pacient pacient) {

@@ -1,21 +1,25 @@
 package si.um.feri.jee.sample.jsf.dao;
 
+import jakarta.ejb.Stateless;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Stateless
 public class ZdravnikMemoryDao implements ZdravnikDAO{
 
     private List<Zdravnik> zdravniki = new ArrayList<>();
     private ZdravnikMemoryDao(){}
+    /*
     private static ZdravnikMemoryDao instance = null;
     public synchronized static ZdravnikMemoryDao getInstance() {
         if(instance == null)
             return new ZdravnikMemoryDao();
         return instance;
     }
+     */
     @Override
     public List<Zdravnik> pridobiVseZdravnike() {
         return zdravniki;

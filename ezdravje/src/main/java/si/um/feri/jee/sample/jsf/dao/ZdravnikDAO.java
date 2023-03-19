@@ -1,10 +1,12 @@
 package si.um.feri.jee.sample.jsf.dao;
 
+import jakarta.ejb.Local;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
 import java.util.List;
 
+@Local
 public interface ZdravnikDAO {
     List<Zdravnik> pridobiVseZdravnike();
     boolean preveriEmail(String email);

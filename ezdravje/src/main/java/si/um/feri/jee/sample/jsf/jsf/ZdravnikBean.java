@@ -1,5 +1,6 @@
 package si.um.feri.jee.sample.jsf.jsf;
 
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -17,7 +18,8 @@ import java.util.List;
 @Named("zdravniki")
 @SessionScoped
 public class ZdravnikBean implements Serializable {
-    private ZdravnikDAO zdrDao = ZdravnikMemoryDao.getInstance();
+    //private ZdravnikDAO zdrDao = ZdravnikMemoryDao.getInstance();
+    @EJB private ZdravnikDAO zdrDao;
     private Zdravnik izbranZdravnik = new Zdravnik();
     private Zdravnik podrobnostiZdravnik = new Zdravnik();
     private String izbranEmail;
