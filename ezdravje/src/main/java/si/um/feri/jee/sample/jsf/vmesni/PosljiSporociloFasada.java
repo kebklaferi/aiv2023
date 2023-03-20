@@ -1,6 +1,5 @@
 package si.um.feri.jee.sample.jsf.vmesni;
 
-import jakarta.annotation.Resource;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -9,7 +8,6 @@ import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.util.ArrayList;
 
 public class PosljiSporociloFasada {
 
@@ -23,7 +21,7 @@ public class PosljiSporociloFasada {
         Message sporocilo = new MimeMessage(session);
         sporocilo.setSubject("Opozorilo o spremembi zdravnika");
         sporocilo.setFrom(new InternetAddress("itslionessmc@gmail.com"));
-        sporocilo.addRecipient(Message.RecipientType.TO,new InternetAddress(p.getEmail()));
+        sporocilo.addRecipient(Message.RecipientType.TO,new InternetAddress("itslionessmc@gmail.com"));
         sporocilo.setText("Odjavili ste se od " + stari.getEmail() + ".");
         Transport.send(sporocilo);
     }
@@ -33,8 +31,7 @@ public class PosljiSporociloFasada {
         sporocilo.setSubject("Izbira zdravnika");
         sporocilo.setFrom(new InternetAddress("itslionessmc@gmail.com"));
         if(jePrazno == true){
-            Address[] arr = {new InternetAddress(z.getEmail()), new InternetAddress(p.getEmail())};
-            sporocilo.addRecipients(Message.RecipientType.TO, arr);
+            sporocilo.addRecipient(Message.RecipientType.TO, new InternetAddress("itslionessmc@gmail.com"));
             sporocilo.setText("Pozdravljeni, \npacient " + p.getEmail() + " je izbral zdravnika " + z.getEmail() + ".");
         }
         else{

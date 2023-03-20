@@ -8,6 +8,7 @@ import si.um.feri.jee.sample.jsf.dao.PacientDAO;
 import si.um.feri.jee.sample.jsf.dao.PacientMemoryDao;
 import si.um.feri.jee.sample.jsf.opazovalec.Opazovalec;
 import si.um.feri.jee.sample.jsf.opazovalec.PacientOpazovalec;
+import si.um.feri.jee.sample.jsf.remote.DodajZdravnika;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 import si.um.feri.jee.sample.jsf.vmesni.PosljiSporociloFasada;
@@ -23,12 +24,12 @@ import java.util.List;
 public class PacientBean implements Serializable {
     //private PacientDAO pacDao = PacientMemoryDao.getInstance();
     @EJB private PacientDAO pacDao;
+    @EJB private DodajZdravnika remoteDodaj;
     private Pacient izbranPacient = new Pacient();
     private Pacient posamezenPacient = new Pacient();
     private Zdravnik izbranOsebZdravnik = null;
     private String izbranEmail;
     private boolean urejanje = false;
-    private List<Opazovalec> opazovalci = new ArrayList<>();
 
     public List<Pacient> getVsePaciente(){
         return pacDao.pridobiVsePaciente();
@@ -38,8 +39,8 @@ public class PacientBean implements Serializable {
         if (preveriEmail(izbranPacient.getEmail()))
             return "/ezdravje/pacienti.xhtml";
         pacDao.dodajPacienta(izbranPacient);
+        izbranPacient.getOpazovalci().add(new PacientOpazovalec());
         izbranPacient = new Pacient();
-        opazovalci.add(new PacientOpazovalec());
         return "/ezdravje/pacienti.xhtml";
     }
 
@@ -67,18 +68,26 @@ public class PacientBean implements Serializable {
     }
     public void potrdiUrejanje() throws NamingException, MessagingException {
         if(izbranOsebZdravnik != null){
-           boolean odg = moznostDodajanaPacientov(izbranOsebZdravnik);
+            remoteDodaj.posljiInDodaj(posamezenPacient.getEmail(), izbranOsebZdravnik.getEmail());
+           /*
+            boolean odg = moznostDodajanaPacientov(izbranOsebZdravnik);
+
            PosljiSporociloFasada mail = new PosljiSporociloFasada();
            mail.sendMail(odg, izbranOsebZdravnik, posamezenPacient);
+
            if(odg){
                if(posamezenPacient.getOsebniZdravnik() != null)
-                   notifyVseOpazovalce(posamezenPacient.getOsebniZdravnik(), posamezenPacient);
+                   posamezenPacient.notifyVseOpazovalce(posamezenPacient.getOsebniZdravnik());
                posamezenPacient.setOsebniZdravnik(izbranOsebZdravnik);
                ArrayList<Pacient> nov = izbranOsebZdravnik.getIzbraniPacienti();
                nov.add(posamezenPacient);
                izbranOsebZdravnik.setIzbraniPacienti(nov);
            }
+           */
         }
+    }
+    public void save(){
+        // remote.posljiInDodaj(String zdravnikov mail, String pacientov mail, boolean moznostDodajanja)
     }
     public boolean moznostDodajanaPacientov(Zdravnik z){
         if(z.getKvotaPacientov() > z.getIzbraniPacienti().size()){
@@ -99,10 +108,6 @@ public class PacientBean implements Serializable {
         return osebni;
     }
 
-    private void notifyVseOpazovalce(Zdravnik stari, Pacient p) throws MessagingException, NamingException {
-        for(Opazovalec e : opazovalci)
-            e.posljiSporocilo(p, stari);
-    }
 
     public boolean isUrejanje() {
         return urejanje;

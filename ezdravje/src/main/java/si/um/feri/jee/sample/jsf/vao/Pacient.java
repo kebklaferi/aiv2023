@@ -1,5 +1,11 @@
 package si.um.feri.jee.sample.jsf.vao;
+import jakarta.mail.MessagingException;
+import si.um.feri.jee.sample.jsf.opazovalec.Opazovalec;
+
+import javax.naming.NamingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Pacient{
     private String ime;
@@ -8,6 +14,7 @@ public class Pacient{
     private Date rojstniDatum;
     private String posebnosti;
     private Zdravnik osebniZdravnik;
+    private List<Opazovalec> opazovalci = new ArrayList<>();
     public Pacient(){
         this.ime = "";
         this.priimek = "";
@@ -23,6 +30,18 @@ public class Pacient{
         this.rojstniDatum = rojstniDatum;
         this.posebnosti = posebnosti;
         this.osebniZdravnik = null;
+    }
+    public void notifyVseOpazovalce(Zdravnik stari) throws MessagingException, NamingException {
+        for(Opazovalec e : opazovalci)
+            e.posljiSporocilo(this, stari);
+    }
+
+    public List<Opazovalec> getOpazovalci() {
+        return opazovalci;
+    }
+
+    public void setOpazovalci(List<Opazovalec> opazovalci) {
+        this.opazovalci = opazovalci;
     }
 
     public String getIme() {
