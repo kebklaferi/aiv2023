@@ -29,12 +29,9 @@
                     </div>
                 </div>
             </nav>
-            <p class="fs-5 text-center mt-3 font-monospace pt-3">PODROBNOSTI O ZDRAVNIKU: #{zdravniki.podrobnostiZdravnika.ime} #{zdravniki.podrobnostiZdravnika.priimek}</p>
-            <f:metadata>
-                <f:viewParam name="email" value="#{zdravniki.izbranEmail}" />
-            </f:metadata>
+            <p class="fs-5 text-center mt-3 font-monospace pt-3">PODROBNOSTI O ZDRAVNIKU: #{zdravniki.podrobnostiZdravnik.ime} #{zdravniki.podrobnostiZdravnik.priimek}</p>
             <h:form>
-                <p:dataTable class="mt-3" value="#{zdravniki.podrobnostiZdravnika}" var="item">
+                <p:dataTable class="mt-3" value="#{zdravniki.podrobnostiZdravnik}" var="item">
                     <p:column>
                         <f:facet name="header">Ime</f:facet>
                         <h:outputText value="#{item.ime}"/>
@@ -53,24 +50,17 @@
                     </p:column>
                     <p:column style="width: 220px">
                         <f:facet style="width: 220px" name="header">Pacienti</f:facet>
-                        <h:dataTable style="width: 220px; border: white none" value="#{item.izbraniPacienti}" var="data">
+                        <h:dataTable style="width: 220px; border: white none" value="#{zdravniki.vsePacienteByZdravnik}" var="data">
                             <h:column>
                                 <h:outputText value="#{data.email}" />
                             </h:column>
                         </h:dataTable>
                     </p:column>
                     <p:column>
-                        <h:outputLink value="/sampleProject/ezdravje/rest/noviPacienti.xhtml">
-                            <f:param name="email" value="#{item.email}"/>
-                            <h:outputText value="[dodaj pacienta]"/>
-                        </h:outputLink>
-                    </p:column>
-                    <p:column>
-                        <h:outputLink value="/sampleProject/ezdravje/rest/urediZdravnika.xhtml">
-                            <f:param name="email" value="#{item.email}"/>
-                            <f:param name="urejanje" value="true"/>
-                            <h:outputText value="uredi"/>
-                        </h:outputLink>
+                        <h:commandButton value="uredi"
+                                         action="/rest/urediZdravnika"
+                                         actionListener="#{zdravniki.pripraviPodrobnostiZdravnika(item.email)}">
+                        </h:commandButton>
                     </p:column>
                     <p:column>
                         <div class="card">

@@ -31,24 +31,20 @@
                 </div>
             </nav>
             <p class="fs-5 text-center mt-3 font-monospace pt-3">DODAJ ZDRAVNIKA</p>
-            <f:metadata>
-                <f:viewParam name="email" value="#{zdravniki.izbranEmail}" />
-                <f:viewParam name="urejanje" value="#{zdravniki.urejanje}" />
-            </f:metadata>
             <h:form>
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">E-mail</label>
-                    <h:inputText type="email" class="form-control" id="inputEmail" value="#{zdravniki.izbranEmail}" validatorMessage="Vnesite email">
+                    <h:inputText type="email" class="form-control" id="inputEmail" value="#{zdravniki.podrobnostiZdravnik.email}" validatorMessage="Vnesite email">
                         <f:validateRequired />
                     </h:inputText><h:message for="inputEmail" style="color:red" />
                 </div>
                 <div class="mb-3">
                     <label for="inputIme" class="form-label">Ime</label>
-                    <h:inputText type="text" class="form-control" id="inputIme" value="#{zdravniki.podrobnostiZdravnika.ime}"/>
+                    <h:inputText type="text" class="form-control" id="inputIme" value="#{zdravniki.podrobnostiZdravnik.ime}"/>
                 </div>
                 <div class="mb-3">
                     <label for="inputPriimek" class="form-label">Priimek</label>
-                    <h:inputText type="text" class="form-control" id="inputPriimek" value="#{zdravniki.podrobnostiZdravnika.priimek}"/>
+                    <h:inputText type="text" class="form-control" id="inputPriimek" value="#{zdravniki.podrobnostiZdravnik.priimek}"/>
                 </div>
                 <h:commandButton class="btn btn-primary" type="submit" value="Potrdi urejanje" actionListener="#{zdravniki.potrdiUrejanje}" action="/ezdravje/zdravniki.xhtml"/>
             </h:form>

@@ -31,7 +31,7 @@
                 </div>
             </nav>
             <p class="fs-5 text-center mt-3 font-monospace pt-3">OPREDELJENI PACIENTI</p>
-            <p:dataTable value="#{zdravniki.opredeljenePaciente}" var="item">
+            <p:dataTable value="#{pacienti.opredeljenePaciente}" var="item">
                 <p:column>
                     <h:outputText value="#{item.email}">:</h:outputText>
                     <h:dataTable value="#{item.izbraniPacienti}" var="data">

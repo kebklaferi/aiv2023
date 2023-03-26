@@ -1,14 +1,22 @@
 package si.um.feri.jee.sample.jsf.vao;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 
+@Entity
 public class Zdravnik{
     private String ime;
     private String priimek;
     private String email;
     private int kvotaPacientov;
-    private ArrayList <Pacient> izbraniPacienti;
+
+    //private ArrayList <Pacient> izbraniPacienti;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     public Zdravnik(){
-        izbraniPacienti = new ArrayList<>();
+        //izbraniPacienti = new ArrayList<>();
         this.ime = "";
         this.priimek = "";
         this.email = "";
@@ -54,12 +62,22 @@ public class Zdravnik{
     public void setKvotaPacientov(int kvotaPacientov) {
         this.kvotaPacientov = kvotaPacientov;
     }
-
+/*
     public ArrayList<Pacient> getIzbraniPacienti() {
         return izbraniPacienti;
     }
 
     public void setIzbraniPacienti(ArrayList<Pacient> izbraniPacienti) {
         this.izbraniPacienti = izbraniPacienti;
+    }
+
+ */
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

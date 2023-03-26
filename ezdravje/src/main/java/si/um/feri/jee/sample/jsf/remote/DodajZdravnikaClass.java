@@ -30,16 +30,16 @@ public class DodajZdravnikaClass implements DodajZdravnika{
             if(pac.getOsebniZdravnik() != null)
                 pac.notifyVseOpazovalce(pac.getOsebniZdravnik());
             pac.setOsebniZdravnik(zdr);
-            ArrayList<Pacient> nov = zdr.getIzbraniPacienti();
-            nov.add(pac);
-            zdr.setIzbraniPacienti(nov);
         }
     }
 
     public boolean moznostDodajanaPacientov(Zdravnik z){
+        /*
         if(z.getKvotaPacientov() > z.getIzbraniPacienti().size()){
             return true;
         }
+         */
+       int stPacientov = pacDao.getPacientiByZdravnik(z);
         return false;
     }
 

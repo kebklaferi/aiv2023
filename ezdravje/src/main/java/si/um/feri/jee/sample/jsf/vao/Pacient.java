@@ -1,5 +1,6 @@
 package si.um.feri.jee.sample.jsf.vao;
 import jakarta.mail.MessagingException;
+import jakarta.persistence.*;
 import si.um.feri.jee.sample.jsf.opazovalec.Opazovalec;
 
 import javax.naming.NamingException;
@@ -7,14 +8,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Pacient{
+
     private String ime;
     private String priimek;
     private String email;
     private Date rojstniDatum;
     private String posebnosti;
+    @ManyToOne
     private Zdravnik osebniZdravnik;
+    @Transient
     private List<Opazovalec> opazovalci = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     public Pacient(){
         this.ime = "";
         this.priimek = "";
@@ -90,5 +99,13 @@ public class Pacient{
 
     public void setOsebniZdravnik(Zdravnik osebniZdravnik) {
         this.osebniZdravnik = osebniZdravnik;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

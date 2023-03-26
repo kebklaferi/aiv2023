@@ -1,7 +1,10 @@
 package si.um.feri.jee.sample.jsf.dao;
 
 import jakarta.ejb.Local;
+import jakarta.inject.Named;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
+import si.um.feri.jee.sample.jsf.vao.Zdravnik;
+
 import java.util.List;
 @Local
 public interface PacientDAO {
@@ -12,4 +15,8 @@ public interface PacientDAO {
     boolean preveriEmail(String email);
     void posodobiEmail(String stari, String novi);
     List<Pacient> vrniNeopredeljenePaciente();
+
+    List<Pacient> vrniOpredeljenePaciente();
+
+    int getPacientiByZdravnik(Zdravnik z);
 }

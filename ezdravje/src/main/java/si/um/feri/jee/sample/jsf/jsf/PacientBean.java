@@ -90,14 +90,20 @@ public class PacientBean implements Serializable {
         // remote.posljiInDodaj(String zdravnikov mail, String pacientov mail, boolean moznostDodajanja)
     }
     public boolean moznostDodajanaPacientov(Zdravnik z){
+        /*
         if(z.getKvotaPacientov() > z.getIzbraniPacienti().size()){
             return true;
-        }
+        }*/
         return false;
+
+
     }
 
     public List<Pacient> getNeopredeljenePaciente(){
         return pacDao.vrniNeopredeljenePaciente();
+    }
+    public List<Pacient> getOpredeljenePaciente(){
+        return pacDao.vrniOpredeljenePaciente();
     }
 
     private Zdravnik preveriObstojZdravnika(){
