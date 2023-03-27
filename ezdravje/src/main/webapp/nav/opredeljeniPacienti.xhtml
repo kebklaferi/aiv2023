@@ -34,11 +34,6 @@
             <p:dataTable value="#{pacienti.opredeljenePaciente}" var="item">
                 <p:column>
                     <h:outputText value="#{item.email}">:</h:outputText>
-                    <h:dataTable value="#{item.izbraniPacienti}" var="data">
-                        <h:column>
-                            <h:outputText value="#{data.email}" />
-                        </h:column>
-                    </h:dataTable>
                 </p:column>
             </p:dataTable>
         </div>

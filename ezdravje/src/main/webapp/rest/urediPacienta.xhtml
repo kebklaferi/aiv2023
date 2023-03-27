@@ -30,41 +30,38 @@
                     </div>
                 </div>
             </nav>
-            <p class="fs-5 text-center mt-3 font-monospace pt-3">UREDI PACIENTA: #{pacienti.pridobiPacienta.ime} #{pacienti.pridobiPacienta.priimek}</p>
-            <f:metadata>
-                <f:viewParam name="email" value="#{pacienti.izbranEmail}" />
-                <f:viewParam name="urejanje" value="#{pacienti.urejanje}" />
-            </f:metadata>
+            <p class="fs-5 text-center mt-3 font-monospace pt-3">UREDI PACIENTA: #{pacienti.posamezenPacient.ime} #{pacienti.posamezenPacient.priimek}</p>
+
             <h:form>
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">E-mail</label>
-                    <h:inputText type="email" class="form-control" id="inputEmail" value="#{pacienti.izbranEmail}" validatorMessage="Vnesite email">
+                    <h:inputText type="email" class="form-control" id="inputEmail" value="#{pacienti.posamezenPacient.email}" validatorMessage="Vnesite email">
                         <f:validateRequired />
                     </h:inputText><h:message for="inputEmail" style="color:red" />
                 </div>
                 <div class="mb-3">
                     <label for="inputIme" class="form-label">Ime</label>
-                    <h:inputText type="text" class="form-control" id="inputIme" value="#{pacienti.pridobiPacienta.ime}"/>
+                    <h:inputText type="text" class="form-control" id="inputIme" value="#{pacienti.posamezenPacient.ime}"/>
                 </div>
                 <div class="mb-3">
                     <label for="inputPriimek" class="form-label">Priimek</label>
-                    <h:inputText type="text" class="form-control" id="inputPriimek" value="#{pacienti.pridobiPacienta.priimek}"/>
+                    <h:inputText type="text" class="form-control" id="inputPriimek" value="#{pacienti.posamezenPacient.priimek}"/>
                 </div>
                 <div class="mb-3">
                     <label for="inputDatum" class="form-label">Datum rojstva</label>
-                    <h:inputText type="text" class="form-control" id="inputDatum" value="#{pacienti.pridobiPacienta.rojstniDatum}">
+                    <h:inputText type="text" class="form-control" id="inputDatum" value="#{pacienti.posamezenPacient.rojstniDatum}">
                         <f:convertDateTime pattern = "dd-mm-yyyy" />
                     </h:inputText>
                 </div>
                 <div class="mb-3">
                     <label for="inputPosebnosti" class="form-label">Posebnosti</label>
-                    <h:inputTextarea type="text" class="form-control" id="inputPosebnosti" value="#{pacienti.pridobiPacienta.posebnosti}"/>
+                    <h:inputTextarea type="text" class="form-control" id="inputPosebnosti" value="#{pacienti.posamezenPacient.posebnosti}"/>
                 </div>
                 <div class="field col-12 md:col-4">
                     <p:outputLabel for="@next" value="Osebni zdravniki:"/>
-                    <p:selectOneMenu id="group" value="#{pacienti.izbranOsebZdravnik}" converter="omnifaces.SelectItemsConverter">
+                    <p:selectOneMenu id="group" value="#{pacienti.zdrId}" converter="omnifaces.SelectItemsConverter">
                         <f:selectItem itemLabel="Izberi zdravnika" itemValue=""/>
-                        <f:selectItems var="data" itemValue="#{data}" value="#{zdravniki.vseZdravnike}" itemLabel="#{data.email}"/>
+                        <f:selectItems var="data" itemValue="#{data.id}" value="#{zdravniki.vseZdravnike}" itemLabel="#{data.email}"/>
                     </p:selectOneMenu>
                 </div>
                 <h:commandButton class="btn btn-primary" type="submit" value="Potrdi urejenje" actionListener="#{pacienti.potrdiUrejanje}"  action="/ezdravje/pacienti.xhtml"/>

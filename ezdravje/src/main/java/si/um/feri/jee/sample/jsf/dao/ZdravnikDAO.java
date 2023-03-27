@@ -12,11 +12,9 @@ public interface ZdravnikDAO {
     boolean preveriEmail(String email);
     void izbrisiZdravnika(String email);
     Zdravnik pridobiZdravnika(String email);
-    void posodobiZdravnika(Zdravnik zdravnik);
+    void posodobiZdravnika(Zdravnik zdravnik, Long id);
     void dodajZdravnika(Zdravnik zdravnik);
-    void dodajPacienta(Pacient pacient, String email);
-    void posodobiEmail(String stari, String novi);
-    List<Zdravnik> vrniOpredeljenePaciente();
     List<Pacient> getPacientiByZdravnik(Zdravnik zdr);
+    Zdravnik pridobiZdravnika(Long id);
 
 }

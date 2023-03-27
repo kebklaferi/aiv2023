@@ -8,5 +8,5 @@ import javax.naming.NamingException;
 import java.io.Serializable;
 
 public interface Opazovalec extends Serializable {
-    void posljiSporocilo(Pacient pac, Zdravnik stari) throws NamingException, MessagingException;
+    void posljiSporocilo(String pac, String stari) throws NamingException, MessagingException;
 }

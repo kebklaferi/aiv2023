@@ -10,7 +10,7 @@ import javax.naming.NamingException;
 public class PacientOpazovalec implements Opazovalec {
 
     @Override
-    public void posljiSporocilo(Pacient pac, Zdravnik stari) throws NamingException, MessagingException {
+    public void posljiSporocilo(String pac, String stari) throws NamingException, MessagingException {
         PosljiSporociloFasada spo = new PosljiSporociloFasada();
         spo.sendForUpdatedDoctor(stari, pac);
     }

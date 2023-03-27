@@ -40,9 +40,10 @@ public class Pacient{
         this.posebnosti = posebnosti;
         this.osebniZdravnik = null;
     }
-    public void notifyVseOpazovalce(Zdravnik stari) throws MessagingException, NamingException {
+    public void notifyVseOpazovalce(String stari) throws MessagingException, NamingException {
+        System.out.println("V NOTIFY OPAZOVALCA");
         for(Opazovalec e : opazovalci)
-            e.posljiSporocilo(this, stari);
+            e.posljiSporocilo(this.email, stari);
     }
 
     public List<Opazovalec> getOpazovalci() {
@@ -92,19 +93,13 @@ public class Pacient{
     public void setPosebnosti(String posebnosti) {
         this.posebnosti = posebnosti;
     }
-
     public Zdravnik getOsebniZdravnik() {
         return osebniZdravnik;
     }
-
     public void setOsebniZdravnik(Zdravnik osebniZdravnik) {
+        System.out.println("V PACIENT VAO OSEBNI ZDR: " + osebniZdravnik);
         this.osebniZdravnik = osebniZdravnik;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
     }

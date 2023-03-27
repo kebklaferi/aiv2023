@@ -1,8 +1,6 @@
 package si.um.feri.jee.sample.jsf.vao;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-
 @Entity
 public class Zdravnik{
     private String ime;
@@ -10,7 +8,6 @@ public class Zdravnik{
     private String email;
     private int kvotaPacientov;
 
-    //private ArrayList <Pacient> izbraniPacienti;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -61,20 +58,6 @@ public class Zdravnik{
 
     public void setKvotaPacientov(int kvotaPacientov) {
         this.kvotaPacientov = kvotaPacientov;
-    }
-/*
-    public ArrayList<Pacient> getIzbraniPacienti() {
-        return izbraniPacienti;
-    }
-
-    public void setIzbraniPacienti(ArrayList<Pacient> izbraniPacienti) {
-        this.izbraniPacienti = izbraniPacienti;
-    }
-
- */
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getId() {
