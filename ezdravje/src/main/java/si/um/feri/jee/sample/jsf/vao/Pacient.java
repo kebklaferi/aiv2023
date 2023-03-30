@@ -1,6 +1,7 @@
 package si.um.feri.jee.sample.jsf.vao;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.*;
+import jdk.jfr.Name;
 import si.um.feri.jee.sample.jsf.opazovalec.Opazovalec;
 
 import javax.naming.NamingException;
@@ -16,7 +17,12 @@ public class Pacient{
     private String email;
     private Date rojstniDatum;
     private String posebnosti;
-    @ManyToOne
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pacient")
+    private List<Obisk> obiski;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "zdravnik_id")
     private Zdravnik osebniZdravnik;
     @Transient
     private List<Opazovalec> opazovalci = new ArrayList<>();
@@ -24,22 +30,8 @@ public class Pacient{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Pacient(){
-        this.ime = "";
-        this.priimek = "";
-        this.email = "";
-        this.rojstniDatum = null;
-        this.posebnosti = "";
-        this.osebniZdravnik = null;
-    }
-    public Pacient(String ime, String priimek, String email, Date rojstniDatum, String posebnosti){
-        this.ime = ime;
-        this.priimek = priimek;
-        this.email = email;
-        this.rojstniDatum = rojstniDatum;
-        this.posebnosti = posebnosti;
-        this.osebniZdravnik = null;
-    }
+    public Pacient(){}
+
     public void notifyVseOpazovalce(String stari) throws MessagingException, NamingException {
         System.out.println("V NOTIFY OPAZOVALCA");
         for(Opazovalec e : opazovalci)
@@ -49,11 +41,9 @@ public class Pacient{
     public List<Opazovalec> getOpazovalci() {
         return opazovalci;
     }
-
     public void setOpazovalci(List<Opazovalec> opazovalci) {
         this.opazovalci = opazovalci;
     }
-
     public String getIme() {
         return ime;
     }
@@ -102,5 +92,11 @@ public class Pacient{
     }
     public Long getId() {
         return id;
+    }
+    public List<Obisk> getObiski() {
+        return obiski;
+    }
+    public void setObiski(List<Obisk> obiski) {
+        this.obiski = obiski;
     }
 }

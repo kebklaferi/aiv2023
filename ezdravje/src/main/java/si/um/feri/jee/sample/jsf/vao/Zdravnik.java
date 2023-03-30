@@ -12,21 +12,7 @@ public class Zdravnik{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Zdravnik(){
-        //izbraniPacienti = new ArrayList<>();
-        this.ime = "";
-        this.priimek = "";
-        this.email = "";
-        this.kvotaPacientov = 0;
-    }
-
-    public Zdravnik(String ime, String priimek, String email, int kvotaPacientov) {
-        this();
-        this.ime = ime;
-        this.priimek = priimek;
-        this.email = email;
-        this.kvotaPacientov = kvotaPacientov;
-    }
+    public Zdravnik(){}
 
     public String getIme() {
         return ime;

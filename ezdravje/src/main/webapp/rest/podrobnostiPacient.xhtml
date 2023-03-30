@@ -33,14 +33,6 @@
             <h:form>
                 <p:dataTable class="mt-3" value="#{pacienti.posamezenPacient}" var="item">
                     <p:column>
-                        <f:facet name="header">Ime</f:facet>
-                        <h:outputText value="#{item.ime}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Priimek</f:facet>
-                        <h:outputText value="#{item.priimek}"/>
-                    </p:column>
-                    <p:column>
                         <f:facet name="header">Email</f:facet>
                         <h:outputText value="#{item.email}"/>
                     </p:column>
@@ -59,17 +51,13 @@
                         <h:outputText value="#{item.osebniZdravnik.email}"/>
                     </p:column>
                     <p:column>
-                        <!--h:outputLink value="/sampleProject/ezdravje/rest/urediPacienta.xhtml">
-                            <f:param name="email" value="#{item.email}"/>
-                            <f:param name="urejanje" value="true"/>
-                            <h:outputText value="uredi"/>
-                        </h:outputLink-->
+                        <h:commandButton value="obiski"
+                                         action="/obisk/obiski">
+                        </h:commandButton>
                         <h:commandButton value="uredi"
                                          action="/rest/urediPacienta"
                                          actionListener="#{pacienti.pripraviPodrobnostiPacienta(item.email)}">
                         </h:commandButton>
-                    </p:column>
-                    <p:column>
                         <div class="card">
                             <p:commandButton styleClass="ui-button-danger ui-button-flat" value="izbriši" actionListener="#{pacienti.potrdiIzbris}" action="/ezdravje/pacienti.xhtml">
                                 <p:confirm type="popup" header="Potrditev izbrisa" message="Ste prepričani, da želite nadaljevati?" icon="pi pi-exclamation-triangle"/>

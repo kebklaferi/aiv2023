@@ -4,6 +4,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import si.um.feri.jee.sample.jsf.vao.Obisk;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 import java.util.ArrayList;
@@ -80,9 +81,18 @@ public class PacientMemoryDao implements PacientDAO{
                     .setParameter("id", id);
             poizvedba.executeUpdate();
         } catch (Exception e){
-
+            e.printStackTrace();
         }
     }
+    @Override
+    public List<Obisk> pridobiObiske(Long id) {
+        try{
+            return em.createQuery("select p.obiski from Pacient p where p.id = ?1").getResultList();
+        } catch (Exception e){
+            return null;
+        }
+    }
+
     @Override
     public boolean preveriEmail(String email) {
         try {

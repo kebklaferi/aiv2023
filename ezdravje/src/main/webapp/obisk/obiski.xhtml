@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Pacienti</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</h:head>
+
+<h:body>
+    <f:view>
+        <div class="container">
+            <h2 class="display-6 text-center mt-3">E-zdravje</h2>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <h:link class="nav-link active" value="ZAČETNA STRAN" outcome="/ezdravje/index.html" />
+                            </li>
+                        </ul>
+                        <!--h:link class="nav-link active" value="Dodaj obisk" outcome="/ezdravje/obisk/dodajObisk.xhtml" /-->
+                        <h:form>
+                            <h:commandButton value="Dodaj obisk" action="#{pacienti.moznostObiska()}"/>
+                        </h:form>
+                    </div>
+                </div>
+            </nav>
+            <p class="fs-5 text-center mt-3 font-monospace pt-3">OBISKI pacienta: #{pacienti.posamezenPacient.ime} #{pacienti.posamezenPacient.priimek}</p>
+            <h:form>
+                <p:dataTable class="mt-3" value="#{pacienti.pridobiObiske()}" var="item">
+                    <p:column>
+                        <f:facet name="header">Datum</f:facet>
+                        <h:outputText value="#{item.termin}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Zdravnik</f:facet>
+                        <h:outputText value="#{item.zdravnik.getEmail()}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Zdravila</f:facet>
+                        <h:outputText value="#{item.zdravila}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Posebnosti</f:facet>
+                        <h:outputText value="#{item.posebnosti}"/>
+                    </p:column>
+                    <p:column>
+                       <h:outputText value="Uredi termin"/>
+                       <h:outputText value="Končaj termin"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </f:view>
+</h:body>
+</html>
