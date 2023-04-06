@@ -13,7 +13,7 @@ public interface ZdravnikDAO {
     void izbrisiZdravnika(String email);
     Zdravnik pridobiZdravnika(String email);
     void posodobiZdravnika(Zdravnik zdravnik, Long id);
-    void dodajZdravnika(Zdravnik zdravnik);
+    Long dodajZdravnika(Zdravnik zdravnik);
     List<Pacient> getPacientiByZdravnik(Zdravnik zdr);
     Zdravnik pridobiZdravnika(Long id);
 

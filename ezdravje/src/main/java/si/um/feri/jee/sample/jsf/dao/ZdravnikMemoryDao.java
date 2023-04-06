@@ -61,8 +61,9 @@ public class ZdravnikMemoryDao implements ZdravnikDAO{
         }
     }
     @Override
-    public void dodajZdravnika(Zdravnik zdravnik) {
+    public Long dodajZdravnika(Zdravnik zdravnik) {
         em.persist(zdravnik);
+        return zdravnik.getId();
     }
     @Override
     public List<Pacient> getPacientiByZdravnik(Zdravnik zdr) {

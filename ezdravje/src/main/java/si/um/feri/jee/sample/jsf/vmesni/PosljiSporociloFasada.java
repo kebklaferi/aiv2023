@@ -3,6 +3,7 @@ package si.um.feri.jee.sample.jsf.vmesni;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import si.um.feri.jee.sample.jsf.vao.Obisk;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
@@ -38,6 +39,22 @@ public class PosljiSporociloFasada {
             sporocilo.addRecipient(Message.RecipientType.TO, new InternetAddress(p.getEmail()));
             sporocilo.setText("Pozdravljeni, \nizbira zdravnika zal trenutno ni mozna.");
         }
+        Transport.send(sporocilo);
+    }
+
+    public void sendPosebnostiMail(Obisk p) throws MessagingException {
+        Message sporocilo = new MimeMessage(session);
+        sporocilo.setSubject("Obisk");
+        sporocilo.addRecipient(Message.RecipientType.TO, new InternetAddress("itslionessmc@gmail.com"));
+        sporocilo.setText("Posiljam osebne informacije pacientu " + p.getPacient().getEmail() + ". Posebnosti: " + p.getPosebnosti());
+        Transport.send(sporocilo);
+    }
+
+    public void sendZdravilaMail(Obisk p) throws MessagingException {
+        Message sporocilo = new MimeMessage(session);
+        sporocilo.setSubject("Obisk");
+        sporocilo.addRecipient(Message.RecipientType.TO, new InternetAddress("itslionessmc@gmail.com"));
+        sporocilo.setText("Posiljam predpisana zdravila in posebnosti pacientu " + p.getPacient().getEmail() + ". Predpisana: " + p.getZdravila());
         Transport.send(sporocilo);
     }
 }

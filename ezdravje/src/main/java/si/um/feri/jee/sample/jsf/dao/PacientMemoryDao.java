@@ -17,8 +17,9 @@ public class PacientMemoryDao implements PacientDAO{
     private EntityManager em;
 
     @Override
-    public void dodajPacienta(Pacient pacient) {
+    public Long dodajPacienta(Pacient pacient) {
         em.persist(pacient);
+        return pacient.getId();
     }
     @Override
     public Pacient pridobiPacienta(String email) {

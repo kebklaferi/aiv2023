@@ -1,20 +1,21 @@
 package si.um.feri.jee.sample.jsf.jsf;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.mail.MessagingException;
 import si.um.feri.jee.sample.jsf.dao.ObiskDAO;
 import si.um.feri.jee.sample.jsf.dao.PacientDAO;
-import si.um.feri.jee.sample.jsf.dao.PacientMemoryDao;
 import si.um.feri.jee.sample.jsf.dao.ZdravnikDAO;
-import si.um.feri.jee.sample.jsf.opazovalec.Opazovalec;
-import si.um.feri.jee.sample.jsf.opazovalec.PacientOpazovalec;
 import si.um.feri.jee.sample.jsf.remote.DodajZdravnika;
+import si.um.feri.jee.sample.jsf.strategija.IStrategija;
+import si.um.feri.jee.sample.jsf.strategija.Konteks;
+import si.um.feri.jee.sample.jsf.strategija.PosebnostiStrat;
+import si.um.feri.jee.sample.jsf.strategija.ZdravilaStrat;
 import si.um.feri.jee.sample.jsf.vao.Obisk;
 import si.um.feri.jee.sample.jsf.vao.Pacient;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
-import si.um.feri.jee.sample.jsf.vmesni.PosljiSporociloFasada;
 
 
 import javax.naming.NamingException;
@@ -31,7 +32,8 @@ public class PacientBean implements Serializable {
     @EJB private DodajZdravnika remoteDodaj;
     private Pacient izbranPacient = new Pacient();
     private Pacient posamezenPacient = new Pacient();
-    private Obisk obisk = null;
+    private Obisk obisk = new Obisk();
+    private Obisk izbranObisk = new Obisk();
     private Long zdrId;
 
     public List<Pacient> getVsePaciente(){
@@ -67,34 +69,69 @@ public class PacientBean implements Serializable {
     }
 
     public List<Obisk> pridobiObiske(){
-        List<Obisk> temp = pacDao.pridobiObiske(posamezenPacient.getId());
+        List<Obisk> temp = obiskDao.pridobiObiskeByPacient(posamezenPacient);
+        System.out.println(temp);
+        List<Obisk> temp2 = obiskDao.pridobiVse();
+        System.out.println(temp2);
         if (temp == null)
             return new ArrayList<>();
         else return temp;
     }
     public String moznostObiska(){
+        System.out.println("NEKAJ");
         if(posamezenPacient.getOsebniZdravnik() != null){
             obisk = new Obisk();
-            return "/obisk/dodajObisk";
+            return "/obisk/dodajObisk.xhtml";
         }
         return "";
     }
-    /*
-    public String dodajObisk(){
-        //shranit se mora tudi k posameznemu pacientu
-        System.out.println("jes");
 
+    public String dodajObisk(){
         obisk.setZdravnik(posamezenPacient.getOsebniZdravnik());
         obisk.setPacient(posamezenPacient);
+        obisk.setZakljucen(false);
         obiskDao.shrani(obisk);
         return "/obisk/obiski";
+    }
 
-
-        return "";
-    }*/
-
-    public void probaj(){
-        System.out.println("V METODI");
+    public String urediObisk(Long o_id){
+        System.out.println("UREJAM");
+        izbranObisk = new Obisk();
+        izbranObisk = obiskDao.pridobiObisk(posamezenPacient, o_id);
+        if(izbranObisk == null)
+            return "";
+        else if(!izbranObisk.isZakljucen()){
+            return "/obisk/urediObisk";
+        }
+        else
+            return "";
+    }
+    public String potrdiUrejanjeObiska(){
+        obiskDao.posodobi(izbranObisk);
+        return "/obisk/obiski";
+    }
+    public String zakljuciObisk(Long id) throws MessagingException, NamingException {
+        System.out.println("ID OBISKA" + id);
+        izbranObisk = new Obisk();
+        izbranObisk = obiskDao.pridobiObisk(posamezenPacient, id);
+        if (izbranObisk == null)
+            return "";
+        if(!izbranObisk.isZakljucen()){
+            izbranObisk.setZakljucen(true);
+            obiskDao.posodobi(izbranObisk);
+            Obisk temp = obiskDao.pridobiObisk(posamezenPacient, id);
+            System.out.println("zakljucen: " + temp.isZakljucen());
+            Konteks konteks = new Konteks();
+            if(!izbranObisk.getPosebnosti().equals("")) {
+                konteks.setStrategija(new PosebnostiStrat());
+            }
+            if (!izbranObisk.getZdravila().equals("")) {
+                konteks.setStrategija(new ZdravilaStrat());
+            }
+            //lahko naredimo se ene strategijo za oboje
+            konteks.proziStrat(izbranObisk);
+        }
+        return "/obisk/obiski";
     }
 
     public List<Pacient> getNeopredeljenePaciente(){
@@ -133,5 +170,13 @@ public class PacientBean implements Serializable {
     }
     public void setObisk(Obisk obisk) {
         this.obisk = obisk;
+    }
+
+    public Obisk getIzbranObisk() {
+        return izbranObisk;
+    }
+
+    public void setIzbranObisk(Obisk izbranObisk) {
+        this.izbranObisk = izbranObisk;
     }
 }

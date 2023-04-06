@@ -33,7 +33,7 @@
             </nav>
             <p class="fs-5 text-center mt-3 font-monospace pt-3">OBISKI pacienta: #{pacienti.posamezenPacient.ime} #{pacienti.posamezenPacient.priimek}</p>
             <h:form>
-                <p:dataTable class="mt-3" value="#{pacienti.pridobiObiske()}" var="item">
+                <p:dataTable id="obiski_dt" class="mt-3" value="#{pacienti.pridobiObiske()}" var="item">
                     <p:column>
                         <f:facet name="header">Datum</f:facet>
                         <h:outputText value="#{item.termin}"/>
@@ -51,8 +51,12 @@
                         <h:outputText value="#{item.posebnosti}"/>
                     </p:column>
                     <p:column>
-                       <h:outputText value="Uredi termin"/>
-                       <h:outputText value="Končaj termin"/>
+                        <h:commandButton class="btn btn-primary"
+                                         type="submit" value="Uredi"
+                                         action="#{pacienti.urediObisk(item.id)}"/>
+                        <h:commandButton class="btn btn-primary"
+                                         type="submit" value="Končaj"
+                                         action="#{pacienti.zakljuciObisk(item.id)}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

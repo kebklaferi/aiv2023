@@ -18,14 +18,45 @@ public class ObiskMemoryDao implements ObiskDAO{
         em.persist(obisk);
     }
     @Override
-    public void izbrisi(Obisk obisk) {
-        em.createQuery("delete from Obisk o where o.id = :id")
-                .setParameter("id", obisk.getId()).executeUpdate();
+    public void izbrisi(Long id) {
+        em.createQuery("delete from Obisk o where o.id = :i").setParameter("i", id).executeUpdate();
     }
     @Override
     public void posodobi(Obisk obisk) {
-        em.createQuery("update Obisk o set o.posebnosti = :pos, o.termin = :ter, o.zdravila = :zrd where o.id = :id")
+        em.createQuery("update Obisk o set o.posebnosti = :pos, o.termin = :ter, o.zdravila = :zrd, o.zakljucen = :za where o.id = :id")
                 .setParameter("pos", obisk.getPosebnosti()).setParameter("ter", obisk.getTermin())
-                .setParameter("zrd", obisk.getZdravila()).executeUpdate();
+                .setParameter("zrd", obisk.getZdravila()).setParameter("id", obisk.getId())
+                .setParameter("za", obisk.isZakljucen()).executeUpdate();
+    }
+
+    @Override
+    public Obisk pridobiObisk(Pacient p, Long id) {
+        try{
+            return (Obisk) em.createQuery("select o from Obisk o where o.pacient = :pac and o.id = :i")
+                    .setParameter("pac", p).setParameter("i", id).getSingleResult();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Obisk> pridobiObiskeByPacient(Pacient p) {
+        try{
+            return em.createQuery("select o from Obisk o where o.pacient = :id").setParameter("id", p).getResultList();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Obisk> pridobiVse() {
+        try{
+            return em.createQuery("select o from Obisk o").getResultList();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

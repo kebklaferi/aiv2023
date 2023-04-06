@@ -17,6 +17,7 @@ public class Obisk {
     private Date termin;
     private String zdravila;
     private String posebnosti;
+    private boolean zakljucen;
 
     public Obisk(){}
 
@@ -58,6 +59,14 @@ public class Obisk {
 
     public void setZdravila(String zdravila) {
         this.zdravila = zdravila;
+    }
+
+    public boolean isZakljucen() {
+        return zakljucen;
+    }
+
+    public void setZakljucen(boolean zakljucen) {
+        this.zakljucen = zakljucen;
     }
 
     public Long getId() {

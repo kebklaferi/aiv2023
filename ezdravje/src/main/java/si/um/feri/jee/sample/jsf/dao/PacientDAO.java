@@ -9,7 +9,7 @@ import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 import java.util.List;
 @Local
 public interface PacientDAO {
-    void dodajPacienta(Pacient pacient);
+    Long dodajPacienta(Pacient pacient);
     Pacient pridobiPacienta(String email);
     List<Pacient> pridobiVsePaciente();
     void izbrisiPacienta(String email);

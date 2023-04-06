@@ -31,7 +31,7 @@
             </nav>
             <p class="fs-5 text-center mt-3 font-monospace pt-3">PODROBNOSTI O PACIENTU: #{pacienti.posamezenPacient.ime} #{pacienti.posamezenPacient.priimek}</p>
             <h:form>
-                <p:dataTable class="mt-3" value="#{pacienti.posamezenPacient}" var="item">
+                <p:dataTable id="podrobnop_id" class="mt-3" value="#{pacienti.posamezenPacient}" var="item">
                     <p:column>
                         <f:facet name="header">Email</f:facet>
                         <h:outputText value="#{item.email}"/>
