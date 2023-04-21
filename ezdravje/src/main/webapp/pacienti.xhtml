@@ -30,7 +30,7 @@
                                 <h:link class="nav-link active" outcome="/nav/opredeljeniPacienti.xhtml" value="OPREDELJENI PACIENTI"></h:link>
                             </li>
                         </ul>
-                        <h:link class="nav-link active" outcome="/rest/dodajPacienta.xhtml" value="DODAJ PACIENTA" />
+                        <h:link class="nav-link active" outcome="/osebe/dodajPacienta.xhtml" value="DODAJ PACIENTA" />
                     </div>
                 </div>
             </nav>
@@ -47,12 +47,8 @@
                 </p:column>
                 <p:column>
                     <f:facet name="header">Email</f:facet>
-                    <!--h:outputLink value="/sampleProject/ezdravje/rest/podrobnostiPacient.xhtml">
-                        <f:param name="email" value="#{item.email}"/>
-                        <h:outputText value="#{item.email}"/>
-                    </h:outputLink-->
                     <h:commandButton value="#{item.email}"
-                                     action="/rest/podrobnostiPacient"
+                                     action="/ezdravje/osebe/podrobnostiPacient"
                                      actionListener="#{pacienti.pripraviPodrobnostiPacienta(item.email)}">
                     </h:commandButton>
                 </p:column>

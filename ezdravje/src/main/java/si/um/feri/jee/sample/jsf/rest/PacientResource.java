@@ -1,13 +1,16 @@
 package si.um.feri.jee.sample.jsf.rest;
 
 import jakarta.ejb.EJB;
+import jakarta.mail.MessagingException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import si.um.feri.jee.sample.jsf.dao.PacientDAO;
 import si.um.feri.jee.sample.jsf.dao.ZdravnikDAO;
 import si.um.feri.jee.sample.jsf.dto.Pacient;
+import si.um.feri.jee.sample.jsf.remote.DodajZdravnika;
 import si.um.feri.jee.sample.jsf.vao.Zdravnik;
 
+import javax.naming.NamingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +21,7 @@ public class PacientResource {
 
     @EJB PacientDAO pacDao;
     @EJB ZdravnikDAO zdrDao;
+    @EJB DodajZdravnika remote;
     @GET
     @Path("/info")
     @Produces(MediaType.TEXT_PLAIN)
@@ -48,13 +52,13 @@ public class PacientResource {
     }
     @PUT
     @Path("/{email}/dodajZdr/{id}")
-    public void izberiZdravnika(@PathParam("email") String pacMail, @PathParam("id") Long zdrId){
+    public void izberiZdravnika(@PathParam("email") String pacMail, @PathParam("id") Long zdrId) throws MessagingException, NamingException {
         Zdravnik zdravnik = zdrDao.pridobiZdravnika(zdrId);
         System.out.println(zdravnik.getKvotaPacientov());
         if(zdravnik.getKvotaPacientov() > pacDao.getPacientiByZdravnik(zdravnik)){
             si.um.feri.jee.sample.jsf.vao.Pacient pac = pacDao.pridobiPacienta(pacMail);
             pac.setOsebniZdravnik(zdravnik);
-            pacDao.posodobiPacienta(pac, pac.getId());
+            remote.posljiInDodaj(pac.getEmail(), zdravnik.getEmail(), true);
         }
     }
 }
